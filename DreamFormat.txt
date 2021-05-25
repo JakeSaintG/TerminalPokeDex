@@ -1,0 +1,45 @@
+Bulbasaur==============================================No. 001===Generation: 1====
+||Types: Grass/Poison;        Color: Green;        Habitat: Grassland
+||
+||
+||Ability: overgrow
+||
+||Height: 0.7m  Wt: 6.9kg
+||
+||Descrition: "A strange seed was planted on its back at birth. The plant sprouts and
+grows with this POKéMON."
+||
+||
+||Evolution chain: Bulbasaur =====> Ivysaur =====> Venusaur 
+==================================================================================
+
+
+Ivysaur================================================No. 002===Generation: 1====
+||Types: Grass/Poison;        Color: Green;        Habitat: Grassland
+||
+||
+||Abilities: overgrow, chlorophyll
+||
+||Height: 1m  Wt: 1.3kg
+||
+||Descrition: "When the bulb on its back grows large, it appears to lose the ability
+to stand on its hind legs."
+||
+||
+Evolution chain: Bulbasaur =====> Ivysaur =====> Venusaur 
+==================================================================================
+
+
+Mewtwo=================================================No. 150===Generation: 1====
+||Type: Psychic;        Color: purple;        Habitat: Rare
+||
+||
+||Ability: pressure
+||
+||Height: 2m  Wt: 122kg
+||
+||Descrition: "It was created by a scientist after years of horrific gene splicing 
+and DNA engineering experiments."
+||
+||
+==================================================================================
