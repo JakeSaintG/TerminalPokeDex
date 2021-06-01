@@ -22,7 +22,7 @@
 - Code Louisville
 - Advice/QA: Dvontre Coleman, Joe Spalding, Daniel Baird.
  
-### Side notes
+#### Side notes
 - Pokemon is a trademark of Nintendo, Game Freak, and Creatures Inc.
 - This application is not intended to make a profit or generate revenue. 
 - I wrote the code in this application but I do not own the rights to Pokemon.
