@@ -32,6 +32,7 @@ namespace PokeDex
                     //https://pokeapi.co/api/v2/evolution-chain/1/ (retrieved from pokemon-species call for evo-chain)
                     //!!!!!!!!!!May run into issue with this. HttpClient seems to be intended to be instantiated once per application, rather than per-use
                 //Receive info back from PokeAPI and send to a method for formatting.
+                //Maybe: store a file of searched pokemon using system.io (CreateFile)
 
 
             //Catch misspelling
