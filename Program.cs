@@ -38,7 +38,7 @@ namespace PokeDex
 
                 foreach (var item in pokeList) 
                 {
-                    if (entry == item.name)
+                    if (entry == item.Name)
                     {
                         Console.Write("We have info " + entry + "! We are still in development. Give us a little bit to format your result for " + entry + "and check back later!");
                         var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry;

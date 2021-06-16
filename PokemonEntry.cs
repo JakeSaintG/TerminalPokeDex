@@ -1,53 +1,89 @@
+using Newtonsoft.Json;
+
 namespace PokeDex
 {
 
     public class PokemonEntry
     {
-        public Ability[] abilities { get; set; }
-        public Form[] forms { get; set; }
-        public int height { get; set; }
-        public int id { get; set; }
-        public string name { get; set; }
-        public Species species { get; set; } //Use this to make the species call?
-        public Type[] types { get; set; }
-        public int weight { get; set; }
+        [JsonProperty(PropertyName = "abilities")]
+        public Abilities[] Abilities { get; set; }
+
+        [JsonProperty(PropertyName = "forms")]
+        public Form[] Forms { get; set; }
+
+        [JsonProperty(PropertyName = "height")]
+        public int Height { get; set; }
+
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
+
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "species")]
+        public Species Species { get; set; } //Use this to make the species call?
+
+        [JsonProperty(PropertyName = "types")]
+        public Type[] Types { get; set; }
+
+        [JsonProperty(PropertyName = "weight")]
+        public int Weight { get; set; }
     }
 
     public class Species
     {
-        public string name { get; set; }
-        public string url { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+        [JsonProperty(PropertyName = "url")]
+        public string Url { get; set; }
+    }
+
+    public class Abilities
+    {
+        [JsonProperty(PropertyName = "ability")]
+        public Ability Ability { get; set; }
+        
+        [JsonProperty(PropertyName = "is_hidden")]
+        public bool Is_hidden { get; set; }
+        
+        [JsonProperty(PropertyName = "slot")]
+        public int Slot { get; set; }
     }
 
     public class Ability
     {
-        public Ability1 ability { get; set; }
-        public bool is_hidden { get; set; }
-        public int slot { get; set; }
-    }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
-    public class Ability1
-    {
-        public string name { get; set; }
-        public string url { get; set; }
+        [JsonProperty(PropertyName = "url")]
+        public string Url { get; set; }
     }
 
     public class Form
     {
-        public string name { get; set; }
-        public string url { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "url")]
+        public string Url { get; set; }
+    }
+
+    public class Types
+    {
+        [JsonProperty(PropertyName = "slot")]
+        public int Slot { get; set; }
+        
+        [JsonProperty(PropertyName = "type")]
+        public Type Type { get; set; }
     }
 
     public class Type
     {
-        public int slot { get; set; }
-        public Type1 type { get; set; }
-    }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
 
-    public class Type1
-    {
-        public string name { get; set; }
-        public string url { get; set; }
+        [JsonProperty(PropertyName = "url")]
+        public string Url { get; set; }
     }
 
 
