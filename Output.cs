@@ -1,0 +1,7 @@
+namespace PokeDex
+{
+    class Output
+    { 
+    
+    }
+}

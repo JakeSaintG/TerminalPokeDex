@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace PokeDex
 {
@@ -6,12 +8,56 @@ namespace PokeDex
     {
         static void Main(string[] args)
         {
+            string initalUrl = "https://pokeapi.co/api/v2/pokemon?limit=1283";
+            var rawPokeInfo = APICall.GetPokemonInfo(initalUrl);
+            var pokeList = APICall.DeserializePokemon(rawPokeInfo);      
+
+            Console.WriteLine("Hello, my name is Dexter.");
+            Console.WriteLine("I'm here to give you more information regarding the wonderful world of Pokemon!");
+            Console.WriteLine("If you are done, enter \"exit\" to stop searching for Pokemon and close me down.");
+
+            while(true)
+            { 
+                Console.Write("What Pokemon do you want more information on? ");
+                string entry = Console.ReadLine().ToLower();
+                
+
+                if (entry == "quit")
+                {
+                    Console.WriteLine("Goodbye! Thanks for playing!");
+                    break;
+                }
+
+                //var filteredEntry = entry.FilterName()
+                //MAYBE! Change it to a Dictionary to have the key/items methods
+                //if (pokeList.Contains(entry))
+                //{
+                //    Console.Write("We have info " + entry + "! We are still in development. Give us a little bit to format your result for " + entry + "and check back later!");
+                //    //var sendEntry = entry.MakeApiCall()
+                //}
+
+                foreach (var item in pokeList) 
+                {
+                    if (entry == item.name)
+                    {
+                        Console.Write("We have info " + entry + "! We are still in development. Give us a little bit to format your result for " + entry + "and check back later!");
+                        var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry;
+                        var sendEntry = APICall.GetPokemonInfo(getPokemonEntryUrl);
+                        var foo = APICall.DeSerializeEntryJson(sendEntry);
+
+
+                    }
+                    //else: Need to figure out the error of a misspelling 
+                }
+            }
+
+            
             /*==============================================================================================================
             **Project requirement** Create a dictionary or list, populate it with several values, retrieve at least one value, and use it in your program
             **Project requirement** Connect to an external/3rd party API and read data into your app
             ***Project requirement** Read data from an external file, such as text, JSON, CSV, etc and use that data in your application
             ==============================================================================================================*/
-            //Call pokeAPI and store ALL Pokemon names in an array from https://pokeapi.co/api/v2/pokemon ()
+            //Call pokeAPI and store ALL Pokemon names in an array OR !!!List<string>!!! from https://pokeapi.co/api/v2/pokemon ()
 
             //Say "Hello, my name is Dexter".
             //"If you are done, enter "exit" to stop searching for Pokemon and close me down."
@@ -35,11 +81,7 @@ namespace PokeDex
                 //Maybe: store a file of searched pokemon using system.io (CreateFile)
 
 
-            //Catch misspelling
-                //By checking userInput against pokemonNames array for a match
-                    //morePractice in Week3 folder is good place to start on search/compare method
-                //send info back to main loop if it's good
-                //If bad, print "I think there may be a spelling error. Please try again."
+
 
             //Formatting method.
                 //Will need a name-formatting method for input
