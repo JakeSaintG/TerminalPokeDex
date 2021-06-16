@@ -40,6 +40,8 @@ namespace PokeDex
             IList<JToken> results = jObject.Children().ToList();
             List<PokemonEntry> pokemonEntry = new List<PokemonEntry>(20);
 
+            //I think my issue is that I need further deserialization of more complex objects.
+            //each ability needs to be added to the Ability class before each one can be added to the Abilities[] class?
             foreach (JToken result in results)
             {
                 PokemonEntry pokemon = result.ToObject<PokemonEntry>();
