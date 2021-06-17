@@ -8,6 +8,13 @@ namespace PokeDex
     {
         static void Main(string[] args)
         {
+            if (Console.BackgroundColor == ConsoleColor.Black)
+            {
+                Console.BackgroundColor = ConsoleColor.DarkRed;
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Clear();
+            }
+
             string initalUrl = "https://pokeapi.co/api/v2/pokemon?limit=1283";
             var rawPokeInfo = APICall.GetPokemonInfo(initalUrl);
             var pokeList = APICall.DeserializePokemon(rawPokeInfo);      
@@ -19,8 +26,9 @@ namespace PokeDex
             while(true)
             { 
                 Console.Write("What Pokemon do you want more information on? ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 string entry = Console.ReadLine().ToLower();
-                
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
 
                 if (entry == "quit")
                 {
@@ -40,11 +48,14 @@ namespace PokeDex
                 {
                     if (entry == item.Name)
                     {
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("We have info " + entry + "! We are still in development. Give us a little bit to format your result for " + entry + "and check back later!");
-                        var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry;
-                        var sendEntry = APICall.GetPokemonInfo(getPokemonEntryUrl);
-                        var foo = APICall.DeSerializeEntryJson(sendEntry);
+                        Console.WriteLine("Placeholder output");
 
+                        //var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry;
+                        //var sendEntry = APICall.GetPokemonInfo(getPokemonEntryUrl);
+                        //var foo = APICall.DeSerializeEntryJson(sendEntry);
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
 
                     }
                     //else: Need to figure out the error of a misspelling 
