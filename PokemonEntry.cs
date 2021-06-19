@@ -12,7 +12,7 @@ namespace PokeDex
         public Form[] Forms { get; set; }
 
         [JsonProperty(PropertyName = "height")]
-        public int Height { get; set; }
+        public double Height { get; set; }
 
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
@@ -24,10 +24,10 @@ namespace PokeDex
         public Species Species { get; set; } //Use this to make the species call?
 
         [JsonProperty(PropertyName = "types")]
-        public Type[] Types { get; set; }
+        public Types[] Types { get; set; }
 
         [JsonProperty(PropertyName = "weight")]
-        public int Weight { get; set; }
+        public double Weight { get; set; }
     }
 
     public class Species
