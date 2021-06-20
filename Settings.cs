@@ -49,7 +49,7 @@ namespace PokeDex
                     else 
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                     }
 
                 }

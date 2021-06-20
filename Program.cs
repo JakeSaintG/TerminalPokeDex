@@ -12,7 +12,7 @@ namespace PokeDex
             if (Console.BackgroundColor == ConsoleColor.Black)
             {
                 Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Clear();
             }
 
@@ -36,7 +36,7 @@ namespace PokeDex
                 string entry = Console.ReadLine().ToLower();
                 if (Settings.DefaultConsole == false)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                 }
                 
 
@@ -108,16 +108,16 @@ namespace PokeDex
 
                         string pokemonName = foo.Name;
                         pokemonName = char.ToUpper(pokemonName[0]) + pokemonName.Substring(1);
-                        Console.WriteLine($"Name: {pokemonName} | {pokemonMeasure} | No. #{foo.Id} | {pokemonType} | " );
+                        Console.WriteLine($"\r\nName: {pokemonName} | {pokemonMeasure} | No. #{foo.Id} | {pokemonType} |\r\n" );
                         /*========================Move to Print Method after testing========================*/
 
                         if (Settings.DefaultConsole == false)
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                            Console.ForegroundColor = ConsoleColor.Cyan;
                         }
  
                     }
-                    //else: Need to figure out the error of a misspelling 
+                    //else: Need to figure out how to handle the error of a misspelling 
                 }
             }
 
