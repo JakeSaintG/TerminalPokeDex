@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace PokeDex
 {
+
     class Program
     {
         static void Main(string[] args)
@@ -23,79 +24,31 @@ namespace PokeDex
             Console.WriteLine("I'm here to give you more information regarding the wonderful world of Pokemon!");
             Console.WriteLine("For settings, enter \"settings\".");
 
-
-            /*========================Move to Settings Class after testing========================*/
-            bool emperialMeasureSetting = false;
-            bool defaultConsole = false;
-            /*========================Move to Settings Class after testing========================*/
-
             Console.WriteLine("If you are done, enter \"quit\" to stop searching for Pokemon and close me down.");
 
             while(true)
             { 
                 Console.Write("What Pokemon do you want more information on? ");
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                if (Settings.DefaultConsole == false)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
                 string entry = Console.ReadLine().ToLower();
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                if (Settings.DefaultConsole == false)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                }
+                
 
                 if (entry == "quit" || entry == "exit" || entry == "stop")
                 {
                     Console.WriteLine("Goodbye! Thanks for playing!");
                     break;
                 }
-
-                /*========================Move to Settings Class after testing========================*/
                 if (entry == "settings")
                 {
-                    Console.WriteLine("==================================================================");
-                    Console.WriteLine("Currently, changing settings DOES NOT do anything. In development.\r\n");
-
-                    Console.WriteLine("To exit settings, enter \"return\"");
-                    Console.WriteLine("  If you would like to...\r\n   >Change units of measurement, enter \"units\".\r\n   >Change Console Colors, enter \"colors\".");
-                    while (true)
-                    {
-                        Console.WriteLine("  Current settings:");
-                        if (emperialMeasureSetting == true)
-                        {
-                            Console.WriteLine("   >Units of measurement: Metric");
-                        }
-                        else 
-                        {
-                            Console.WriteLine("   >Units of measurement: Emperial");
-                        }
-                        if (defaultConsole == false)
-                        {
-                            Console.WriteLine("   >Current console: Colorful");
-                        }
-                        else
-                        {
-                            Console.WriteLine("   >Current console: Default");
-                        }
-
-                        string settingsInput = Console.ReadLine().ToLower();
-                        if (settingsInput == "units")
-                        {
-                            emperialMeasureSetting = !emperialMeasureSetting;
-                        }
-                        else if (settingsInput == "colors")
-                        {
-                            defaultConsole = !defaultConsole;
-                        }
-                        else if (settingsInput == "return")
-                        {
-                            Console.WriteLine("Leaving settings.");
-                            Console.WriteLine("==================================================================");
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Please enter \"units\" or \"colors\" to alter settings. Otherwise, enter \"return\" to exit settings.");
-                        }
-                    }
-                    
+                    Settings.AlterSettings();
                 }
-                /*========================Move to Settings Class after testing========================*/
-
 
                 //var filteredEntry = entry.FilterName()
                 //MAYBE! Change it to a Dictionary to have the key/items methods
@@ -133,24 +86,24 @@ namespace PokeDex
                             pokemonType = $"{pokemonType}/{pokemonSecondType}";
                         }
 
-                        double pokemonHeight;
-                        double pokemonWeight;
+                        double pokemonHeight = foo.Height / 10;
+                        double pokemonWeight = foo.Weight / 10;
                         string pokemonMeasure;
 
-                        //if (emperialMeasureSetting == true)
-                        //{
-                        //    double pokemonHeight = foo.Height / 10;
-                        //    double pokemonWeight =  foo.Weight / 10;
-
-
-                        //    string pokemonMeasure = $"Height: {pokemonHeight} | Weight: {pokemonWeight}"; 
-                        //}
-                        //else
-                        //{
-                            pokemonHeight = foo.Height / 10;
-                            pokemonWeight = foo.Weight / 10;
+                        if (Settings.EmperialMeasureSetting == true)
+                        {
+                            pokemonHeight = pokemonHeight * 39.370;
+                            pokemonWeight = pokemonWeight * 35.274;
+                            int pounds = (int)pokemonWeight / 16;
+                            int ouncesLeft = (int)pokemonWeight % 16;
+                            int feet = (int)pokemonHeight / 12;
+                            int inchesLeft = (int)pokemonHeight % 12;
+                            pokemonMeasure = $"Height: {feet}ft {inchesLeft}in | Weight: {pounds}lb {ouncesLeft}oz";
+                        }
+                        else
+                        {
                             pokemonMeasure = $"Height: {pokemonHeight}M | Weight: {pokemonWeight}Kg";
-                        //}
+                        }
                          
 
                         string pokemonName = foo.Name;
@@ -158,7 +111,11 @@ namespace PokeDex
                         Console.WriteLine($"Name: {pokemonName} | {pokemonMeasure} | No. #{foo.Id} | {pokemonType} | " );
                         /*========================Move to Print Method after testing========================*/
 
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        if (Settings.DefaultConsole == false)
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        }
+ 
                     }
                     //else: Need to figure out the error of a misspelling 
                 }
