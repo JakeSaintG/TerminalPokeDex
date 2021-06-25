@@ -54,5 +54,10 @@ namespace PokeDex
         { 
             return JsonConvert.DeserializeObject<PokemonEntry>(json); 
         }
+
+        public static PokemonSpecies DeSerializeSpeciesJson(string json)
+        {
+            return JsonConvert.DeserializeObject<PokemonSpecies>(json);
+        }
     }
 }

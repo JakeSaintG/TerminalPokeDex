@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PokeDex
 {
@@ -38,13 +39,14 @@ namespace PokeDex
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
                 }
-                
 
-                if (entry == "quit" || entry == "exit" || entry == "stop")
+                var quitCommands = new List<string> { "stop", "exit", "quit", "q" };
+                if (quitCommands.Any(str => str.Contains(entry)))
                 {
                     Console.WriteLine("Goodbye! Thanks for playing!");
                     break;
                 }
+
                 if (entry == "settings")
                 {
                     Settings.AlterSettings();
@@ -58,18 +60,25 @@ namespace PokeDex
                 //    //var sendEntry = entry.MakeApiCall()
                 //}
 
-                //if (pokeList.)
+                //if (pokeList.ElementAt(0) == entry) 
+                //{
+                //    Console.WriteLine();
+                //}
 
                 foreach (var item in pokeList) 
                 {
-                    if (entry == item.Name)
+                    if (entry == item.Name) //Maybe use a linq Where/Any/Contains method to determine if the mon is in the list?
                     {
                         Console.ForegroundColor = ConsoleColor.White;
 
                         var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry;
+                        var getPokemonSpeciesURL = "https://pokeapi.co/api/v2/pokemon-species/" + entry;
                         var sendEntry = APICall.GetPokemonInfo(getPokemonEntryUrl);
+                        var sendSpecies = APICall.GetPokemonInfo(getPokemonSpeciesURL);
                         var foo = APICall.DeSerializeEntryJson(sendEntry);
+                        var bar = APICall.DeSerializeSpeciesJson(sendSpecies);
 
+                        
                         /*========================Move to Print Method after testing========================*/
                         string pokemonType;
                         if (foo.Types.Length == 1)
@@ -98,17 +107,44 @@ namespace PokeDex
                             int ouncesLeft = (int)pokemonWeight % 16;
                             int feet = (int)pokemonHeight / 12;
                             int inchesLeft = (int)pokemonHeight % 12;
-                            pokemonMeasure = $"Height: {feet}ft {inchesLeft}in | Weight: {pounds}lb {ouncesLeft}oz";
+                            pokemonMeasure = $"Height: {feet}ft {inchesLeft}in Weight: {pounds}lb {ouncesLeft}oz";
                         }
                         else
                         {
-                            pokemonMeasure = $"Height: {pokemonHeight}M | Weight: {pokemonWeight}Kg";
+                            pokemonMeasure = $"Height: {pokemonHeight}M Weight: {pokemonWeight}Kg";
                         }
-                         
 
                         string pokemonName = foo.Name;
                         pokemonName = char.ToUpper(pokemonName[0]) + pokemonName.Substring(1);
-                        Console.WriteLine($"\r\nName: {pokemonName} | {pokemonMeasure} | No. #{foo.Id} | {pokemonType} |\r\n" );
+
+                        var description = bar.flavor_text_entries[0].flavor_text; //Maybe later, pick a random number from the length of the array to display a random entry ==> if(flavor_text_entries[i].language == "en")
+                        description = description.Replace("\n", " ").Replace("\f", " ");
+
+                        string abilities = "";
+                        foreach (var ability in foo.Abilities) //Maybe make this prettier with LINQ later?
+                        { 
+                            if (ability.Slot == 1)
+                            {
+                                abilities = abilities + ability.Ability.Name;
+                            }
+                            else 
+                            {
+                                abilities = abilities + ", " + ability.Ability.Name;
+                            }       
+                        }
+
+                        Console.WriteLine($"\r\n{pokemonName}================================================No. {foo.Id}==={bar.generation.name}\r\n" +
+                            $"||Types: {pokemonType};        Color: {bar.color.name};        Habitat: {bar.habitat.name}\r\n" +
+                            $"||\r\n" +
+                            $"||\r\n" +
+                            $"||Abilities: {abilities}\r\n" +
+                            $"||\r\n" +
+                            $"||{pokemonMeasure}\r\n" +
+                            $"||\r\n" +
+                            $"||Description: {description}\r\n" + 
+                            $"||\r\n" +
+                            $"||Evolution chain: {bar.evolution_chain}\r\n" +
+                            $"==================================================================================\r\n" );
                         /*========================Move to Print Method after testing========================*/
 
                         if (Settings.DefaultConsole == false)
