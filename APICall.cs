@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 using System.Net;
 using System.IO;
@@ -7,49 +8,43 @@ using System.Linq;
 
 namespace PokeDex
 {
-    class APICall
-    {
+    public class APICall
+    {     
         public static string GetPokemonInfo(string url)
         {
             var webClient = new WebClient();
-            byte[] data = webClient.DownloadData(url);
-
-            using (var stream = new MemoryStream(data))
-            using (var reader = new StreamReader(stream))
+            try
             {
-                return reader.ReadToEnd();
+                byte[] data = webClient.DownloadData(url);
+                using (var stream = new MemoryStream(data))
+                using (var reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
             }
+            catch (WebException)
+            {
+                string fail = "failed";
+                Console.WriteLine("Huh...It looks like I have encountered an error.\r\n" +
+                "Perhaps an unreliable internet connection?\r\n" +
+                "This application depends on a connection to PokeAPI.\r\n");
+                return fail;
+            }   
         }
-
-        public static List<Result> DeserializePokemon(string json)
+        public static PokeList DeserializePokemon(string json)
         {
-            JObject jObject = JObject.Parse(json);
-            IList<JToken> results = jObject["results"].Children().ToList();
-            List<Result> pokeList = new List<Result>(1283);
-            foreach (JToken result in results)
-            {
-                Result pokemon = result.ToObject<Result>();
-                pokeList.Add(pokemon);
-            }
-            return pokeList;
+            //JObject jObject = JObject.Parse(json);
+            //IList<JToken> results = jObject["results"].Children().ToList();
+            //List<Result> pokeList = new List<Result>(1283);
+            //foreach (JToken result in results)
+            //{
+            //    Result pokemon = result.ToObject<Result>();
+            //    pokeList.Add(pokemon);
+            //}
+            //return pokeList;
+
+            return JsonConvert.DeserializeObject<PokeList>(json);
         }
-
-        //public static List<PokemonEntry> DeSerializeEntryJson(string json)
-        //{
-        //    JObject jObject = JObject.Parse(json);
-        //    IList<JToken> results = jObject.Children().ToList();
-        //    List<PokemonEntry> pokemonEntry = new List<PokemonEntry>(20);
-
-        //    //I think my issue is that I need further deserialization of more complex objects.
-        //    //each ability needs to be added to the Ability class before each one can be added to the Abilities[] class?
-        //    foreach (JToken result in results)
-        //    {
-        //        PokemonEntry pokemon = result.ToObject<PokemonEntry>();
-        //        pokemonEntry.Add(pokemon);
-        //    }
-        //    return pokemonEntry;
-        //}
-
         public static PokemonEntry DeSerializeEntryJson(string json) 
         { 
             return JsonConvert.DeserializeObject<PokemonEntry>(json); 

@@ -16,26 +16,30 @@ namespace PokeDex
             if (name.Contains("farfet"))
             {
                 name = "farfetchd";
-            };
-            if (name.Contains("jr"))
+            }
+            else if (name.Contains("jr"))
             {
                 name = "mime-jr";
-            };
-            if (name.Contains("rime") && name.Contains("mr"))
+            }
+            else if(name.Contains("rime") && name.Contains("mr"))
             {
                 name = "mr-rime";
-            };
-            if (name.Contains("mime") && name.Contains("mr"))
+            }
+            else if (name.Contains("mime") && name.Contains("mr"))
             {
                 name = "mr-mime";
-            };
-            if (name.Contains("type") && name.Contains("null"))
+            }
+            else if (name.Contains("type") && name.Contains("null"))
             {
                 name = "type-null";
-            };
-            if (name.Contains("ho") && name.Contains("oh"))
+            }
+            else if (name.Contains("ho") && name.Contains("oh"))
             {
                 name = "ho-oh";
+            }
+            else 
+            {
+                name = enteredPokemon;
             };
             return name;
         }

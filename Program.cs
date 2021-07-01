@@ -5,6 +5,13 @@ using System.Linq;
 
 namespace PokeDex
 {
+    public class UserInput
+    {
+        public static string GetUserInput()
+        {
+            return Console.ReadLine().ToLower();
+        }
+    }
 
     class Program
     {
@@ -19,12 +26,15 @@ namespace PokeDex
 
             string initalUrl = "https://pokeapi.co/api/v2/pokemon?limit=1283";
             var rawPokeInfo = APICall.GetPokemonInfo(initalUrl);
+            if (rawPokeInfo == "failed")
+            {
+                Environment.Exit(13);
+            }
             var pokeList = APICall.DeserializePokemon(rawPokeInfo);      
 
             Console.WriteLine("Hello, my name is Dexter.");
             Console.WriteLine("I'm here to give you more information regarding the wonderful world of Pokemon!");
             Console.WriteLine("For settings, enter \"settings\".");
-
             Console.WriteLine("If you are done, enter \"quit\" to stop searching for Pokemon and close me down.");
 
             while(true)
@@ -34,7 +44,7 @@ namespace PokeDex
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                 }
-                string entry = Console.ReadLine().ToLower();
+                string entry = UserInput.GetUserInput();
                 if (Settings.DefaultConsole == false)
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -50,7 +60,10 @@ namespace PokeDex
                 if (entry == "settings")
                 {
                     Settings.AlterSettings();
+                    continue;
                 }
+
+                entry = Filter.FilterEntry(entry);
 
                 //var filteredEntry = entry.FilterName()
                 //MAYBE! Change it to a Dictionary to have the key/items methods
@@ -65,96 +78,114 @@ namespace PokeDex
                 //    Console.WriteLine();
                 //}
 
-                foreach (var item in pokeList) 
+                if (pokeList.Results.Any(p => p.Name == entry))
                 {
-                    if (entry == item.Name) //Maybe use a linq Where/Any/Contains method to determine if the mon is in the list?
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry;
+                    var getPokemonSpeciesURL = "https://pokeapi.co/api/v2/pokemon-species/" + entry;
+                    var sendEntry = APICall.GetPokemonInfo(getPokemonEntryUrl);
+                    var sendSpecies = APICall.GetPokemonInfo(getPokemonSpeciesURL);
+                    var pokemonMainEntry = APICall.DeSerializeEntryJson(sendEntry);
+                    var pokemonSpeciesEntry = APICall.DeSerializeSpeciesJson(sendSpecies);
+
+
+                    /*========================Move to Print Method after testing========================*/
+                    string pokemonName = pokemonMainEntry.Name;
+                    pokemonName = char.ToUpper(pokemonName[0]) + pokemonName.Substring(1); //Make method for capitalizing 
+
+                    string pokemonType;
+                    if (pokemonMainEntry.Types.Length == 1)
                     {
-                        Console.ForegroundColor = ConsoleColor.White;
-
-                        var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry;
-                        var getPokemonSpeciesURL = "https://pokeapi.co/api/v2/pokemon-species/" + entry;
-                        var sendEntry = APICall.GetPokemonInfo(getPokemonEntryUrl);
-                        var sendSpecies = APICall.GetPokemonInfo(getPokemonSpeciesURL);
-                        var foo = APICall.DeSerializeEntryJson(sendEntry);
-                        var bar = APICall.DeSerializeSpeciesJson(sendSpecies);
-
-                        
-                        /*========================Move to Print Method after testing========================*/
-                        string pokemonType;
-                        if (foo.Types.Length == 1)
-                        {
-                            pokemonType = foo.Types[0].Type.Name;
-                            pokemonType = char.ToUpper(pokemonType[0]) + pokemonType.Substring(1);
-                        }
-                        else
-                        {
-                            pokemonType = foo.Types[0].Type.Name;
-                            pokemonType = char.ToUpper(pokemonType[0]) + pokemonType.Substring(1);
-                            string pokemonSecondType = foo.Types[1].Type.Name;
-                            pokemonSecondType = char.ToUpper(pokemonSecondType[0]) + pokemonSecondType.Substring(1);
-                            pokemonType = $"{pokemonType}/{pokemonSecondType}";
-                        }
-
-                        double pokemonHeight = foo.Height / 10;
-                        double pokemonWeight = foo.Weight / 10;
-                        string pokemonMeasure;
-
-                        if (Settings.EmperialMeasureSetting == true)
-                        {
-                            pokemonHeight = pokemonHeight * 39.370;
-                            pokemonWeight = pokemonWeight * 35.274;
-                            int pounds = (int)pokemonWeight / 16;
-                            int ouncesLeft = (int)pokemonWeight % 16;
-                            int feet = (int)pokemonHeight / 12;
-                            int inchesLeft = (int)pokemonHeight % 12;
-                            pokemonMeasure = $"Height: {feet}ft {inchesLeft}in Weight: {pounds}lb {ouncesLeft}oz";
-                        }
-                        else
-                        {
-                            pokemonMeasure = $"Height: {pokemonHeight}M Weight: {pokemonWeight}Kg";
-                        }
-
-                        string pokemonName = foo.Name;
-                        pokemonName = char.ToUpper(pokemonName[0]) + pokemonName.Substring(1);
-
-                        var description = bar.flavor_text_entries[0].flavor_text; //Maybe later, pick a random number from the length of the array to display a random entry ==> if(flavor_text_entries[i].language == "en")
-                        description = description.Replace("\n", " ").Replace("\f", " ");
-
-                        string abilities = "";
-                        foreach (var ability in foo.Abilities) //Maybe make this prettier with LINQ later?
-                        { 
-                            if (ability.Slot == 1)
-                            {
-                                abilities = abilities + ability.Ability.Name;
-                            }
-                            else 
-                            {
-                                abilities = abilities + ", " + ability.Ability.Name;
-                            }       
-                        }
-
-                        Console.WriteLine($"\r\n{pokemonName}================================================No. {foo.Id}==={bar.generation.name}\r\n" +
-                            $"||Types: {pokemonType};        Color: {bar.color.name};        Habitat: {bar.habitat.name}\r\n" +
-                            $"||\r\n" +
-                            $"||\r\n" +
-                            $"||Abilities: {abilities}\r\n" +
-                            $"||\r\n" +
-                            $"||{pokemonMeasure}\r\n" +
-                            $"||\r\n" +
-                            $"||Description: {description}\r\n" + 
-                            $"||\r\n" +
-                            $"||Evolution chain: {bar.evolution_chain}\r\n" +
-                            $"==================================================================================\r\n" );
-                        /*========================Move to Print Method after testing========================*/
-
-                        if (Settings.DefaultConsole == false)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                        }
- 
+                        pokemonType = pokemonMainEntry.Types[0].Type.Name;
+                        pokemonType = char.ToUpper(pokemonType[0]) + pokemonType.Substring(1);
                     }
-                    //else: Need to figure out how to handle the error of a misspelling 
+                    else
+                    {
+                        pokemonType = pokemonMainEntry.Types[0].Type.Name;
+                        pokemonType = char.ToUpper(pokemonType[0]) + pokemonType.Substring(1);
+                        string pokemonSecondType = pokemonMainEntry.Types[1].Type.Name;
+                        pokemonSecondType = char.ToUpper(pokemonSecondType[0]) + pokemonSecondType.Substring(1);
+                        pokemonType = $"{pokemonType}/{pokemonSecondType}";
+                    }
+
+                    var pokemonHabitat = "";
+                    if (pokemonSpeciesEntry.habitat != null)
+                    {
+                        pokemonHabitat = $"Habitat: {pokemonSpeciesEntry.habitat.name}";
+                    }
+                    //Some Pokemon don't have habitats. This just removes habitat from the output if none exists.
+                    //Handles: System.NullReferenceException
+
+                    string abilities = "";
+                    foreach (var ability in pokemonMainEntry.Abilities) //Maybe make this prettier with LINQ later?
+                    {
+                        if (ability.Slot == 1)
+                        {
+                            abilities = abilities + ability.Ability.Name;
+                        }
+                        else
+                        {
+                            abilities = abilities + ", " + ability.Ability.Name;
+                        }
+                    }
+
+                    double pokemonHeight = pokemonMainEntry.Height / 10;
+                    double pokemonWeight = pokemonMainEntry.Weight / 10;
+                    string pokemonMeasure;
+                    if (Settings.EmperialMeasureSetting == true)
+                    {
+                        pokemonHeight = pokemonHeight * 39.370;
+                        pokemonWeight = pokemonWeight * 35.274;
+                        int pounds = (int)pokemonWeight / 16;
+                        int ouncesLeft = (int)pokemonWeight % 16;
+                        int feet = (int)pokemonHeight / 12;
+                        int inchesLeft = (int)pokemonHeight % 12;
+                        pokemonMeasure = $"Height: {feet}ft {inchesLeft}in Weight: {pounds}lb {ouncesLeft}oz";
+                    }
+                    else
+                    {
+                        pokemonMeasure = $"Height: {pokemonHeight}M Weight: {pokemonWeight}Kg";
+                    }
+
+                    var description = pokemonSpeciesEntry.flavor_text_entries[0].flavor_text; //Maybe later, pick a random number from the length of the array to display a random entry ==> if(flavor_text_entries[i].language == "en")
+                    description = description.Replace("\n", " ").Replace("\f", " "); //Make method for removing weird symbols
+
+                    //==================================================================================================
+                    //==================================================================================================
+                    //MIME JR BREAKS THIS! FIGURE OUT WHY!
+                    //==================================================================================================
+                    //==================================================================================================
+                    Console.WriteLine($"\r\n{pokemonName}================================================No. {pokemonMainEntry.Id}==={pokemonSpeciesEntry.generation.name}\r\n" +
+                        $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.color.name};        {pokemonHabitat}\r\n" +
+                        $"||\r\n" +
+                        $"||\r\n" +
+                        $"||Abilities: {abilities}\r\n" +
+                        $"||\r\n" +
+                        $"||{pokemonMeasure}\r\n" +
+                        $"||\r\n" +
+                        $"||Description: {description}\r\n" +
+                        $"||\r\n" +
+                        $"||Evolution chain: {pokemonSpeciesEntry.evolution_chain}\r\n" +
+                        $"==================================================================================\r\n");
+                    /*========================Move to Print Method after testing========================*/
+
+                    if (Settings.DefaultConsole == false)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                    }
                 }
+                else 
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("Hmm..I would appear that I don't know about this Pokemon.\r\nPerhaps check your spelling and try again.\r\n");
+                    if (Settings.DefaultConsole == false)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                    }
+                }
+
+                      
             }
 
             
