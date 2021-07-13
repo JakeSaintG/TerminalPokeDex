@@ -65,5 +65,23 @@ namespace PokeDex
                 }
             }
         }
+
+        public static void CheckColors(ConsoleColor color)
+        { 
+            if (DefaultConsole == false)
+            {
+                Console.ForegroundColor = color;
+            }
+        }
+
+        public static void SetColors()
+        {
+            if (Console.BackgroundColor == ConsoleColor.Black)
+            {
+                Console.BackgroundColor = ConsoleColor.DarkRed;
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.Clear();
+            }
+        }
     }
 }

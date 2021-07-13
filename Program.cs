@@ -17,12 +17,7 @@ namespace PokeDex
     {
         static void Main(string[] args)
         {
-            if (Console.BackgroundColor == ConsoleColor.Black)
-            {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Clear();
-            }
+            Settings.SetColors();
 
             string initalUrl = "https://pokeapi.co/api/v2/pokemon?limit=1283";
             var rawPokeInfo = APICall.GetPokemonInfo(initalUrl);
@@ -40,15 +35,9 @@ namespace PokeDex
             while(true)
             { 
                 Console.Write("What Pokemon do you want more information on? ");
-                if (Settings.DefaultConsole == false)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                }
+                Settings.CheckColors(ConsoleColor.Yellow);
                 string entry = UserInput.GetUserInput();
-                if (Settings.DefaultConsole == false)
-                {
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                }
+                Settings.CheckColors(ConsoleColor.Cyan);
 
                 var quitCommands = new List<string> { "stop", "exit", "quit", "q" };
                 if (quitCommands.Any(str => str.Contains(entry)))
@@ -62,48 +51,57 @@ namespace PokeDex
                     Settings.AlterSettings();
                     continue;
                 }
+                entry = Filter.FilterNameEntry(entry);
+                /*
+                 ==============================================
+                Want to display forms for the user to pick from!
+                 ==============================================                 
+                 */
+                var displayOptions = new List<Result>(pokeList.Results.Where(p => p.Name.Contains(entry)));
 
-                entry = Filter.FilterEntry(entry);
+                //Need to skip pumpkaboo, greninja, gourgeist, skip TOTEMS
 
-                //var filteredEntry = entry.FilterName()
-                //MAYBE! Change it to a Dictionary to have the key/items methods
-                //if (pokeList.Contains(entry))
-                //{
-                //    Console.Write("We have info " + entry + "! We are still in development. Give us a little bit to format your result for " + entry + "and check back later!");
-                //    //var sendEntry = entry.MakeApiCall()
-                //}
-
-                //if (pokeList.ElementAt(0) == entry) 
-                //{
-                //    Console.WriteLine();
-                //}
+                if (displayOptions.Count > 1)
+                {
+                    Console.WriteLine("\r\nYour entry matches a few options. Which one do you want?\r\n");
+                    foreach (var item in displayOptions)
+                    {
+                        Console.WriteLine(item.Name);
+                    }
+                    Settings.CheckColors(ConsoleColor.Yellow);
+                    entry = UserInput.GetUserInput();
+                    Settings.CheckColors(ConsoleColor.Cyan);
+                }
+                /*
+                 ==============================================
+                Want to display forms for the user to pick from!
+                 ==============================================                 
+                 */
 
                 if (pokeList.Results.Any(p => p.Name == entry))
                 {
                     Console.ForegroundColor = ConsoleColor.White;
 
-                    var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry;
-                    var getPokemonSpeciesURL = "https://pokeapi.co/api/v2/pokemon-species/" + entry;
+                    var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry; 
                     var sendEntry = APICall.GetPokemonInfo(getPokemonEntryUrl);
-                    var sendSpecies = APICall.GetPokemonInfo(getPokemonSpeciesURL);
                     var pokemonMainEntry = APICall.DeSerializeEntryJson(sendEntry);
+
+                    var getPokemonSpeciesURL = pokemonMainEntry.Species.Url;
+                    var sendSpecies = APICall.GetPokemonInfo(getPokemonSpeciesURL);
                     var pokemonSpeciesEntry = APICall.DeSerializeSpeciesJson(sendSpecies);
 
 
-                    /*========================Move to Print Method after testing========================*/
+                    /*========================Move to Print Method after testing========================*/   
                     string pokemonName = pokemonMainEntry.Name;
+                    pokemonName = Filter.FormatNameOuput(pokemonMainEntry);
                     pokemonName = char.ToUpper(pokemonName[0]) + pokemonName.Substring(1); //Make method for capitalizing 
 
                     string pokemonType;
-                    if (pokemonMainEntry.Types.Length == 1)
+
+                    pokemonType = pokemonMainEntry.Types[0].Type.Name;
+                    pokemonType = char.ToUpper(pokemonType[0]) + pokemonType.Substring(1);
+                    if (pokemonMainEntry.Types.Length != 1)
                     {
-                        pokemonType = pokemonMainEntry.Types[0].Type.Name;
-                        pokemonType = char.ToUpper(pokemonType[0]) + pokemonType.Substring(1);
-                    }
-                    else
-                    {
-                        pokemonType = pokemonMainEntry.Types[0].Type.Name;
-                        pokemonType = char.ToUpper(pokemonType[0]) + pokemonType.Substring(1);
                         string pokemonSecondType = pokemonMainEntry.Types[1].Type.Name;
                         pokemonSecondType = char.ToUpper(pokemonSecondType[0]) + pokemonSecondType.Substring(1);
                         pokemonType = $"{pokemonType}/{pokemonSecondType}";
@@ -148,17 +146,29 @@ namespace PokeDex
                         pokemonMeasure = $"Height: {pokemonHeight}M Weight: {pokemonWeight}Kg";
                     }
 
-                    var description = pokemonSpeciesEntry.flavor_text_entries[0].flavor_text; //Maybe later, pick a random number from the length of the array to display a random entry ==> if(flavor_text_entries[i].language == "en")
+                    pokemonSpeciesEntry.flavor_text_entries.RemoveAll(f => f.language.name != "en");
+                    var description = pokemonSpeciesEntry.flavor_text_entries[0].flavor_text;
+
+                    var specialForms = new List<string> { "-galar", "-alola", "-gmax", "-mega", "rotom", "-black", "-white" };
+                    var formsList = new List<SpecialForms>();
+
+                    //In order for this to work, I probably need to deserialize the forms JSON on startup.
+                    //if (formsList.Any(s => s.Name.Contains(entry)))
+                    //{
+                    //    description = Filter.GetActualDescription(entry);
+                    //}
+
+                    foreach (var item in specialForms)
+                    {
+                        if (entry.Contains(item))
+                        {
+                            description = Filter.GetActualDescription(entry);
+                        }
+                    }
                     description = description.Replace("\n", " ").Replace("\f", " "); //Make method for removing weird symbols
 
-                    //==================================================================================================
-                    //==================================================================================================
-                    //MIME JR BREAKS THIS! FIGURE OUT WHY!
-                    //==================================================================================================
-                    //==================================================================================================
-                    Console.WriteLine($"\r\n{pokemonName}================================================No. {pokemonMainEntry.Id}==={pokemonSpeciesEntry.generation.name}\r\n" +
+                    Console.WriteLine($"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.id}==={pokemonSpeciesEntry.generation.name}\r\n" +
                         $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.color.name};        {pokemonHabitat}\r\n" +
-                        $"||\r\n" +
                         $"||\r\n" +
                         $"||Abilities: {abilities}\r\n" +
                         $"||\r\n" +
@@ -166,23 +176,26 @@ namespace PokeDex
                         $"||\r\n" +
                         $"||Description: {description}\r\n" +
                         $"||\r\n" +
+                        $"||Forms: \r\n" +
+                        $"||\r\n" +
                         $"||Evolution chain: {pokemonSpeciesEntry.evolution_chain}\r\n" +
                         $"==================================================================================\r\n");
+                    //foreach (var item in pokemonSpeciesEntry.flavor_text_entries)
+                    //{
+                    //    if (item.language.name == "en")
+                    //    {
+                    //        Console.WriteLine($"{item.version.name}: {item.flavor_text}\r\n\r\n");
+                    //    }
+                    //}
                     /*========================Move to Print Method after testing========================*/
 
-                    if (Settings.DefaultConsole == false)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                    }
+                    Settings.CheckColors(ConsoleColor.Cyan);
                 }
                 else 
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("Hmm..I would appear that I don't know about this Pokemon.\r\nPerhaps check your spelling and try again.\r\n");
-                    if (Settings.DefaultConsole == false)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                    }
+                    Settings.CheckColors(ConsoleColor.Cyan);
                 }
 
                       

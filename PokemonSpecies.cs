@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class PokemonSpecies
 {
     public Color color { get; set; }
     public Evolution_Chain evolution_chain { get; set; }
     public object evolves_from_species { get; set; }
-    public Flavor_Text_Entries[] flavor_text_entries { get; set; }
+    public List<Flavor_Text_Entries> flavor_text_entries { get; set; }
     public object[] form_descriptions { get; set; }
     public bool forms_switchable { get; set; }
     public int gender_rate { get; set; }

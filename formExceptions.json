@@ -1,0 +1,533 @@
+{
+  "special-forms": [
+    {
+      "name": "kyurem-black",
+      "fixed-description": "The sameness of Zekrom's and Kyurem's genes allowed Kyurem to absorb Zekrom. Kyurem can now use the power of both electricity and ice."
+    },
+    {
+      "name": "kyurem-white",
+      "fixed-description": "The sameness of Reshiram's and Kyurem's genes allowed Kyurem to absorb Reshiram. Kyurem can now use the power of both fire and ice."
+    },
+    {
+      "name": "rattata-alola",
+      "fixed-description": "Night after night, they sneak into people's homes seeking food. A massive outbreak of them has become an issue of public concern."
+    },
+    {
+      "name": "raticate-alola",
+      "fixed-description": "It makes its Rattata underlings gather food for it, dining solely on the most nutritious and delicious fare."
+    },
+    {
+      "name": "raichu-alola",
+      "fixed-description": "This Pokémon rides on its tail while it uses its psychic powers to levitate. It attacks with star-shaped thunderbolts."
+    },
+    {
+      "name": "sandshrew-alola",
+      "fixed-description": "Life on mountains covered with deep snow has granted this Pokémon a body of ice that's as hard as steel."
+    },
+    {
+      "name": "sandslash-alola",
+      "fixed-description": "Many people climb snowy mountains, hoping to see the icy spikes of these Pokémon glistening in the light of dawn."
+    },
+    {
+      "name": "vuplix-alola",
+      "fixed-description": "After long years in the ever-snowcapped mountains of Alola, this Vulpix has gained power over ice."
+    },
+    {
+      "name": "ninetails-alola",
+      "fixed-description": "It lives on mountains perpetually covered in snow and is revered as a deity incarnate. It appears draped in a blizzard."
+    },
+    {
+      "name": "diglett-alola",
+      "fixed-description": "After living in soil with high iron content for some time, three steel whiskers sprouted from the top of its head."
+    },
+    {
+      "name": "dugtrio-alola",
+      "fixed-description": "Its shining gold hair provides it with protection. It's reputed that keeping any of its fallen hairs will bring bad luck."
+    },
+    {
+      "name": "meowth-alola",
+      "fixed-description": "Deeply proud and keenly smart, this Pokémon moves with cunning during battle and relentlessly attacks enemies' weak points."
+    },
+    {
+      "name": "persian-alola",
+      "fixed-description": "The round face of Alolan Persian is considered to be a symbol of prosperity in the Alola region, so these Pokémon are very well cared for."
+    },
+    {
+      "name": "geodude-alola",
+      "fixed-description": "Its stone head is imbued with electricity and magnetism. If you carelessly step on one, you'll be in for a painful shock."
+    },
+    {
+      "name": "graveler-alola",
+      "fixed-description": "When it comes rolling down a mountain path, anything in its way gets zapped by electricity and sent flying."
+    },
+    {
+      "name": "golem-alola",
+      "fixed-description": "It uses magnetism to accelerate and fire off rocks tinged with electricity. Even if it doesn't score a direct hit, the jolt of electricity will do the job."
+    },
+    {
+      "name": "grimer-alola",
+      "fixed-description": "It has a passion for trash above all else, speedily digesting it and creating brilliant crystals of sparkling poison."
+    },
+    {
+      "name": "muk-alola",
+      "fixed-description": "The garbage it eats causes continuous chemical changes in its body, which produce its exceedingly vivid coloration."
+    },
+    {
+      "name": "exeggutor-alola",
+      "fixed-description": "As it grew taller and taller, it outgrew its reliance on psychic powers, while within it awakened the power of the sleeping dragon."
+    },
+    {
+      "name": "marowak-alola",
+      "fixed-description": "The cursed flames that light up the bone carried by this Pokémon are said to cause both mental and physical pain that will never fade."
+    },
+    {
+      "name": "meowth-galar",
+      "fixed-description": "Living with a savage, seafaring people has toughened this Pokémon's body so much that parts of it have turned to iron."
+    },
+    {
+      "name": "ponyta-galar",
+      "fixed-description": "This Pokémon will look into your eyes and read the contents of your heart. If it finds evil there, it promptly hides away."
+    },
+    {
+      "name": "rapidash-galar",
+      "fixed-description": "Brave and prideful, this Pokémon dashes airily through the forest, its steps aided by the psychic power stored in the fur on its fetlocks."
+    },
+    {
+      "name": "slowpoke-galar",
+      "fixed-description": "Because Galarian Slowpoke eat the seeds of a plant that grows only in Galar, their tails have developed a spicy flavor."
+    },
+    {
+      "name": "slowbro-galar",
+      "fixed-description": "A Shellder bite set off a chemical reaction with the spices inside Slowbro's body, causing Slowbro to become a Poison-type Pokémon."
+    },
+    {
+      "name": "farfetchd-galar",
+      "fixed-description": "The stalks of leeks are thicker and longer in the Galar region. Farfetch'd that adapted to these stalks took on a unique form."
+    },
+    {
+      "name": "weezing-galar",
+      "fixed-description": "This Pokémon consumes particles that contaminate the air. Instead of leaving droppings, it expels clean air."
+    },
+    {
+      "name": "mr-mime-galar",
+      "fixed-description": "Its talent is tap-dancing. It can also manipulate temperatures to create a floor of ice, which this Pokémon can kick up to use as a barrier."
+    },
+    {
+      "name": "articuno-galar",
+      "fixed-description": "Its feather-like blades are composed of psychic energy and can shear through thick iron sheets as if they were paper."
+    },
+    {
+      "name": "zapdos-galar",
+      "fixed-description": "One kick from its powerful legs will pulverize a dump truck. Supposedly, this Pokémon runs through the mountains at over 180 mph."
+    },
+    {
+      "name": "moltres-galar",
+      "fixed-description": "This Pokémon's sinister, flame-like aura will consume the spirit of any creature it hits. Victims become burned-out shadows of themselves."
+    },
+    {
+      "name": "slowking-galar",
+      "fixed-description": "A combination of toxins and the shock of evolving has increased Shellder's intelligence to the point that Shellder now controls Slowking."
+    },
+    {
+      "name": "corsola-galar",
+      "fixed-description": "Sudden climate change wiped out this ancient kind of Corsola. This Pokémon absorbs others' life-force through its branches."
+    },
+    {
+      "name": "zigzagoon-galar",
+      "fixed-description": "Its restlessness has it constantly running around. If it sees another Pokémon, it will purposely run into them in order to start a fight."
+    },
+    {
+      "name": "linoone-galar",
+      "fixed-description": "It uses its long tongue to taunt opponents. Once the opposition is enraged, this Pokémon hurls itself at the opponent, tackling them forcefully."
+    },
+    {
+      "name": "darumaka-galar",
+      "fixed-description": "The colder they get, the more energetic they are. They freeze their breath to make snowballs, using them as ammo for playful snowball fights."
+    },
+    {
+      "name": "darmanitan-standard-galar",
+      "fixed-description": "Though it has a gentle disposition, it's also very strong. It will quickly freeze the snowball on its head before going for a headbutt."
+    },
+    {
+      "name": "darmanitan-zen-galar",
+      "fixed-description": "Darmanitan takes this form when enraged. It won't stop spewing flames until its rage has settled, even if its body starts to melt."
+    },
+    {
+      "name": "yamask-galar",
+      "fixed-description": "It's said that this Pokémon was formed when an ancient clay tablet was drawn to a vengeful spirit."
+    },
+    {
+      "name": "stunfisk-galar",
+      "fixed-description": "Its conspicuous lips lure prey in as it lies in wait in the mud. When prey gets close, Stunfisk clamps its jagged steel fins down on them."
+    },
+    {
+      "name": "rotom",
+      "fixed-description": "With a body made of plasma, it can inhabit all sorts of machines. It loves to surprise others."
+    },
+    {
+      "name": "rotom-wash",
+      "fixed-description": "This Rotom has possessed a washing machine that uses a special motor. It blasts out water to get enemies to back down."
+    },
+    {
+      "name": "rotom-heat",
+      "fixed-description": "This Rotom has possessed a convection microwave oven that uses a special motor. It also has a flair for manipulating flames."
+    },
+    {
+      "name": "rotom-frost",
+      "fixed-description": "When it's like this, Rotom likes to play pranks that are freezing cold. You may find it's turned the bath you just filled to solid ice!"
+    },
+    {
+      "name": "rotom-fan",
+      "fixed-description": "This Rotom has taken over a fan that has a special motor. Its gusts of wind blow its opponents away!"
+    },
+    {
+      "name": "rotom-mow",
+      "fixed-description": "This is Rotom after it's seized control of a lawn mower that has a special motor. As it mows down grass, it scatters the clippings everywhere."
+    },
+    {
+      "name": "charizard-mega-y",
+      "fixed-description": "Its bond with its Trainer is the source of its power. It boasts speed and maneuverability greater than that of a jet fighter."
+    },
+    {
+      "name": "charizard-mega-x",
+      "fixed-description": "The overwhelming power that fills its entire body causes it to turn black and creates intense blue flames."
+    },
+    {
+      "name": "mewtwo-mega-y",
+      "fixed-description": "Despite its diminished size, its mental power has grown phenomenally. With a mere thought, it can smash a skyscraper to smithereens."
+    },
+    {
+      "name": "mewtwo-mega-x",
+      "fixed-description": "Psychic power has augmented its muscles. It has a grip strength of one ton and can sprint a hundred meters in two seconds flat!"
+    },
+    {
+      "name": "venusaur-mega",
+      "fixed-description": "In order to support its flower, which has grown larger due to Mega Evolution, its back and legs have become stronger."
+    },
+    {
+      "name": "blastoise-mega",
+      "fixed-description": "The cannon on its back is as powerful as a tank gun. Its tough legs and back enable it to withstand the recoil from firing the cannon."
+    },
+    {
+      "name": "alakazam-mega",
+      "fixed-description": "As a result of Mega Evolution, its power has been entirely converted into psychic energy, and it has lost all strength in its muscles."
+    },
+    {
+      "name": "gengar-mega",
+      "fixed-description": "Mega Evolution has made it possible for Gengar to access other dimensions. Its entire body is brimming with strange power."
+    },
+    {
+      "name": "kangaskhan-mega",
+      "fixed-description": "Thanks to Mega Evolution, its child grows. But as the child is good only at fighting and nothing else, its mother feels uneasy about its future."
+    },
+    {
+      "name": "pinsir-mega",
+      "fixed-description": "The influence of Mega Evolution leaves it in a state of constant excitement. It pierces enemies with its two large horns before shredding them."
+    },
+    {
+      "name": "gyarados-mega",
+      "fixed-description": "Mega Evolution also affects its brain, leaving no other function except its destructive instinct to burn everything to cinders."
+    },
+    {
+      "name": "aerodactyl-mega",
+      "fixed-description": "When it Mega Evolves, it becomes more vicious than ever before. Some say that's because its excess of power is causing it pain."
+    },
+    {
+      "name": "ampharos-mega",
+      "fixed-description": "Massive amounts of energy intensely stimulated Ampharos's cells, apparently awakening its long-sleeping dragon's blood."
+    },
+    {
+      "name": "scizor-mega",
+      "fixed-description": "It stores the excess energy from Mega Evolution, so after a long time passes, its body starts to melt."
+    },
+    {
+      "name": "heracross-mega",
+      "fixed-description": "A tremendous influx of energy builds it up, but when Mega Evolution ends, Heracross is bothered by terrible soreness in its muscles."
+    },
+    {
+      "name": "houndoom-mega",
+      "fixed-description": "Houndoom's entire body generates heat when it Mega Evolves. Its fearsome fiery breath turns its opponents to ash."
+    },
+    {
+      "name": "tyranitar-mega",
+      "fixed-description": "The effects of Mega Evolution make it more ferocious than ever. It's unclear whether it can even hear its Trainer's orders."
+    },
+    {
+      "name": "blaziken-mega",
+      "fixed-description": "Blaziken has incredibly strong legs—it can easily clear a 30-story building in one leap. This Pokémon's blazing punches leave its foes scorched and blackened.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "gardevoir-mega",
+      "fixed-description": "Gardevoir has the psychokinetic power to distort the dimensions and create a small black hole. This Pokémon will try to protect its Trainer even at the risk of its own life.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "mawile-mega",
+      "fixed-description": "Its two sets of jaws thrash about violently as if they each had a will of their own. One gnash from them can turn a boulder to dust."
+    },
+    {
+      "name": "aggron-mega",
+      "fixed-description": "Aggron is protective of its environment. If its mountain is ravaged by a landslide or a fire, this Pokémon will haul topsoil to the area, plant trees, and beautifully restore its own territory.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "medicham-mega",
+      "fixed-description": "It is said that through meditation, Medicham heightens energy inside its body and sharpens its sixth sense. This Pokémon hides its presence by merging itself with fields and mountains.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "manectric-mega",
+      "fixed-description": "It is said that through meditation, Medicham heightens energy inside its body and sharpens its sixth sense. This Pokémon hides its presence by merging itself with fields and mountains.",
+      "has-special-flavortext": false
+
+    },
+    {
+      "name": "banette-mega",
+      "fixed-description": "Mega Evolution increases its vindictiveness, and the cursing power that was held back by its zipper comes spilling out."
+    },
+    {
+      "name": "absol-mega",
+      "fixed-description": "It converts the energy from Mega Evolution into an intimidating aura. Fainthearted people expire from shock at the sight of it."
+    },
+    {
+      "name": "latias-mega",
+      "fixed-description": "Latias is highly sensitive to the emotions of people. If it senses any hostility, this Pokémon ruffles the feathers all over its body and cries shrilly to intimidate the foe.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "latios-mega",
+      "fixed-description": "Latios will only open its heart to a Trainer with a compassionate spirit. This Pokémon can fly faster than a jet plane by folding its forelegs to minimize air resistance.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "garchomp-mega",
+      "fixed-description": "Its disposition is more vicious than before its Mega Evolution. Garchomp carves its opponents up with the scythes on both arms."
+    },
+    {
+      "name": "lucario-mega",
+      "fixed-description": "Its aura has expanded due to Mega Evolution. Governed only by its combative instincts, it strikes enemies without mercy."
+    },
+    {
+      "name": "abomasnow-mega",
+      "fixed-description": "It lives a quiet life on mountains that are perpetually covered in snow. It hides itself by whipping up blizzards.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "beedrill-mega",
+      "fixed-description": "Its legs have become poison stingers. It stabs its prey repeatedly with the stingers on its limbs, dealing the final blow with the stinger on its rear."
+    },
+    {
+      "name": "pidgeot-mega",
+      "fixed-description": "With its muscular strength now greatly increased, it can fly continuously for two weeks without resting."
+    },
+    {
+      "name": "slowbro-mega",
+      "fixed-description": "When bathed in the energy of Mega Evolution, Shellder converts into impregnable armor. There is virtually no change in Slowpoke."
+    },
+    {
+      "name": "steelix-mega",
+      "fixed-description": "Steelix lives even further underground than Onix. This Pokémon is known to dig toward the earth's core. There are records of this Pokémon reaching a depth of over six-tenths of a mile underground.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "sceptile-mega",
+      "fixed-description": "The leaves growing on Sceptile's body are very sharp edged. This Pokémon is very agile—it leaps all over the branches of trees and jumps on its foe from above or behind.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "swampert-mega",
+      "fixed-description": "Swampert is very strong. It has enough power to easily drag a boulder weighing more than a ton. This Pokémon also has powerful vision that lets it see even in murky water.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "sableye-mega",
+      "fixed-description": "Bathed in the energy of Mega Evolution, the gemstone on its chest expands, rips through its skin, and falls out."
+    },
+    {
+      "name": "sharpedo-mega",
+      "fixed-description": "The yellow patterns it bears are old scars. The energy from Mega Evolution runs through them, causing it sharp pain and suffering."
+    },
+    {
+      "name": "camerupt-mega",
+      "fixed-description": "The volcanoes on its back have a major eruption every 10 years--or whenever it becomes really angry.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "altaria-mega",
+      "fixed-description": "Altaria dances and wheels through the sky among billowing, cotton-like clouds. By singing melodies in its crystal-clear voice, this Pokémon makes its listeners experience dreamy wonderment.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "glalie-mega",
+      "fixed-description": "The power of Mega Evolution was so strong that it smashed Glalie's jaw. Its inability to eat very well leaves Glalie irritated."
+    },
+    {
+      "name": "salamence-mega",
+      "fixed-description": "The stress of its two proud wings becoming misshapen and stuck together because of strong energy makes it go on a rampage."
+    },
+    {
+      "name": "metagross-mega",
+      "fixed-description": "Its intellect surpasses its previous level, resulting in battles so cruel, they'll make you want to cover your eyes."
+    },
+    {
+      "name": "rayquaza-mega",
+      "fixed-description": "It flies forever through the ozone layer, consuming meteoroids for sustenance. The many meteoroids in its body provide the energy it needs to Mega Evolve."
+    },
+    {
+      "name": "lopunny-mega",
+      "fixed-description": "Mega Evolution awakens its combative instincts. It has shed any fur that got in the way of its attacks."
+    },
+    {
+      "name": "gallade-mega",
+      "fixed-description": "Sharply attuned to others' wishes for help, this Pokémon seeks out those in need and aids them in battle.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "audino-mega",
+      "fixed-description": "Audino's sense of hearing is superb. Not even a pebble rolling along over a mile away will escape Audino's ears.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "diancie-mega",
+      "fixed-description": "A sudden transformation of Carbink, its pink, glimmering body is said to be the loveliest sight in the whole world.",
+      "has-special-flavortext": false
+    },
+    {
+      "name": "venusaur-gmax",
+      "fixed-description": "In battle, this Pokémon swings around two thick vines. If these vines slammed into a 10-story building, they could easily topple it."
+    },
+    {
+      "name": "charizard-gmax",
+      "fixed-description": "This colossal, flame-winged figure of a Charizard was brought about by Gigantamax energy."
+    },
+    {
+      "name": "blastoise-gmax",
+      "fixed-description": "It's not very good at precision shooting. When attacking, it just fires its 31 cannons over and over and over."
+    },
+    {
+      "name": "butterfree-gmax",
+      "fixed-description": "Crystallized Gigantamax energy makes up this Pokémon's blindingly bright and highly toxic scales."
+    },
+    {
+      "name": "pikachu-gmax",
+      "fixed-description": "\tIts Gigantamax power expanded, forming its supersized body and towering tail."
+    },
+    {
+      "name": "meowth-gmax",
+      "fixed-description": "Its body has grown incredibly long and the coin on its forehead has grown incredibly large—all thanks to Gigantamax power."
+    },
+    {
+      "name": "machamp-gmax",
+      "fixed-description": "The Gigantamax energy coursing through its arms makes its punches hit as hard as bomb blasts."
+    },
+    {
+      "name": "gengar-gmax",
+      "fixed-description": "Rumor has it that its gigantic mouth leads not into its body, filled with cursed energy, but instead directly to the afterlife."
+    },
+    {
+      "name": "kingler-gmax",
+      "fixed-description": "The flow of Gigantamax energy has spurred this Pokémon's left pincer to grow to an enormous size. That claw can pulverize anything."
+    },
+    {
+      "name": "lapras-gmax",
+      "fixed-description": "Over 5,000 people can ride on its shell at once. And it's a very comfortable ride, without the slightest shaking or swaying."
+    },
+    {
+      "name": "eevee-gmax",
+      "fixed-description": "Gigantamax energy upped the fluffiness of the fur around Eevee's neck. The fur will envelop a foe, capturing its body and captivating its mind."
+    },
+    {
+      "name": "snorlax-gmax",
+      "fixed-description": "Gigantamax energy has affected stray seeds and even pebbles that got stuck to Snorlax, making them grow to a huge size."
+    },
+    {
+      "name": "garbodor-gmax",
+      "fixed-description": "Due to Gigantamax energy, this Pokémon's toxic gas has become much thicker, congealing into masses shaped like discarded toys."
+    },
+    {
+      "name": "melmetal-gmax",
+      "fixed-description": "In a distant land, there are legends about a cyclopean giant. In fact, the giant was a Melmetal that was flooded with Gigantamax energy."
+    },
+    {
+      "name": "rillaboom-gmax",
+      "fixed-description": "Gigantamax energy has caused Rillaboom's stump to grow into a drum set that resembles a forest."
+    },
+    {
+      "name": "cinderace-gmax",
+      "fixed-description": "Gigantamax energy can sometimes cause the diameter of this Pokémon's fireball to exceed 300 feet."
+    },
+    {
+      "name": "inteleon-gmax",
+      "fixed-description": "Gigantamax Inteleon's Water Gun move fires at Mach 7. As the Pokémon takes aim, it uses the crest on its head to gauge wind and temperature."
+    },
+    {
+      "name": "corviknight-gmax",
+      "fixed-description": "Imbued with Gigantamax energy, its wings can whip up winds more forceful than any a hurricane could muster. The gusts blow everything away."
+    },
+    {
+      "name": "orbeetle-gmax",
+      "fixed-description": "Its brain has grown to a gargantuan size, as has the rest of its body. This Pokémon's intellect and psychic abilities are overpowering."
+    },
+    {
+      "name": "drednaw-gmax",
+      "fixed-description": "It responded to Gigantamax energy by becoming bipedal. First it comes crashing down on foes, and then it finishes them off with its massive jaws."
+    },
+    {
+      "name": "coalossal-gmax",
+      "fixed-description": "Its body is a colossal stove. With Gigantamax energy stoking the fire, this Pokémon's flame burns hotter than 3,600 degrees Fahrenheit."
+    },
+    {
+      "name": "flapple-gmax",
+      "fixed-description": "\tUnder the influence of Gigantamax energy, it produces much more sweet nectar, and its shape has changed to resemble a giant apple."
+    },
+    {
+      "name": "appletun-gmax",
+      "fixed-description": "Due to Gigantamax energy, this Pokémon's nectar has thickened. The increased viscosity lets the nectar absorb more damage than before."
+    },
+    {
+      "name": "sandaconda-gmax",
+      "fixed-description": "Its sand pouch has grown to tremendous proportions. More than 1,000,000 tons of sand now swirl around its body."
+    },
+    {
+      "name": "toxtricity-amped-gmax",
+      "fixed-description": "Its excessive electric energy is its weapon. This Pokémon can build up more electricity than any thundercloud."
+    },
+    {
+      "name": "toxtricity-low-key-gmax",
+      "fixed-description": "Out of control after its own poison penetrated its brain, it tears across the land in a rampage, contaminating the earth with toxic sweat."
+    },
+    {
+      "name": "centiskorch-gmax",
+      "fixed-description": "The heat that comes off a Gigantamax Centiskorch may destabilize air currents. Sometimes it can even cause storms."
+    },
+    {
+      "name": "hatterene-gmax",
+      "fixed-description": "Beams like lightning shoot down from its tentacles. It's known to some as the Raging Goddess."
+    },
+    {
+      "name": "grimmsnarl-gmax",
+      "fixed-description": "Gigantamax energy has caused more hair to sprout all over its body. With the added strength, it can jump over the world's tallest building."
+    },
+    {
+      "name": "alcremie-gmax",
+      "fixed-description": "Cream pours endlessly from this Pokémon's body. The cream stiffens when compressed by an impact. A harder impact results in harder cream."
+    },
+    {
+      "name": "copperajah-gmax",
+      "fixed-description": "After this Pokémon has Gigantamaxed, its massive nose can utterly demolish large structures with a single smashing blow."
+    },
+    {
+      "name": "duraludon-gmax",
+      "fixed-description": "The hardness of its cells is exceptional, even among Steel types. It also has a body structure that's resistant to earthquakes."
+    },
+    {
+      "name": "urshifu-rapid-strike-gmax",
+      "fixed-description": "As it waits for the right moment to unleash its Gigantamax power, this Pokémon maintains a perfect one-legged stance. It won't even twitch."
+    },
+    {
+      "name": "urshifu-single-strike-gmax",
+      "fixed-description": "The energy released by this Pokémon's fists forms shock waves that can blow away Dynamax Pokémon in just one hit."
+    }
+  ]
+}

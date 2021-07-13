@@ -33,16 +33,6 @@ namespace PokeDex
         }
         public static PokeList DeserializePokemon(string json)
         {
-            //JObject jObject = JObject.Parse(json);
-            //IList<JToken> results = jObject["results"].Children().ToList();
-            //List<Result> pokeList = new List<Result>(1283);
-            //foreach (JToken result in results)
-            //{
-            //    Result pokemon = result.ToObject<Result>();
-            //    pokeList.Add(pokemon);
-            //}
-            //return pokeList;
-
             return JsonConvert.DeserializeObject<PokeList>(json);
         }
         public static PokemonEntry DeSerializeEntryJson(string json) 
@@ -53,6 +43,11 @@ namespace PokeDex
         public static PokemonSpecies DeSerializeSpeciesJson(string json)
         {
             return JsonConvert.DeserializeObject<PokemonSpecies>(json);
+        }
+
+        public static SpecialFormsDecriptions DeSerializeSpecialJson(string json)
+        {
+            return JsonConvert.DeserializeObject<SpecialFormsDecriptions>(json);
         }
     }
 }
