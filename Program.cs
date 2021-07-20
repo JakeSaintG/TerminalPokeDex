@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Globalization.CultureInfo;
 
 namespace PokeDex
 {
@@ -18,14 +19,7 @@ namespace PokeDex
         static void Main(string[] args)
         {
             Settings.SetColors();
-
-            string initalUrl = "https://pokeapi.co/api/v2/pokemon?limit=1283";
-            var rawPokeInfo = APICall.GetPokemonInfo(initalUrl);
-            if (rawPokeInfo == "failed")
-            {
-                Environment.Exit(13);
-            }
-            var pokeList = APICall.DeserializePokemon(rawPokeInfo);      
+            var pokeList = APICall.GetFullList();
 
             Console.WriteLine("Hello, my name is Dexter.");
             Console.WriteLine("I'm here to give you more information regarding the wonderful world of Pokemon!");
@@ -82,28 +76,22 @@ namespace PokeDex
                 {
                     Console.ForegroundColor = ConsoleColor.White;
 
-                    var getPokemonEntryUrl = "https://pokeapi.co/api/v2/pokemon/" + entry; 
-                    var sendEntry = APICall.GetPokemonInfo(getPokemonEntryUrl);
-                    var pokemonMainEntry = APICall.DeSerializeEntryJson(sendEntry);
-
-                    var getPokemonSpeciesURL = pokemonMainEntry.Species.Url;
-                    var sendSpecies = APICall.GetPokemonInfo(getPokemonSpeciesURL);
-                    var pokemonSpeciesEntry = APICall.DeSerializeSpeciesJson(sendSpecies);
-
+                    var pokemonMainEntry = APICall.GetEntry(entry);
+                    var pokemonSpeciesEntry = APICall.GetEntrySpecies(pokemonMainEntry.Species.Url);
+                    var pokemonEvolutionEntry = APICall.GetEntryEvolutionChain(pokemonSpeciesEntry.EvolutionChain.Url);
 
                     /*========================Move to Print Method after testing========================*/   
                     string pokemonName = pokemonMainEntry.Name;
                     pokemonName = Filter.FormatNameOuput(pokemonMainEntry);
-                    pokemonName = char.ToUpper(pokemonName[0]) + pokemonName.Substring(1); //Make method for capitalizing 
-
+              
+                    var info = CurrentCulture.TextInfo;
+                    pokemonName = info.ToTitleCase(pokemonName);
                     string pokemonType;
 
-                    pokemonType = pokemonMainEntry.Types[0].Type.Name;
-                    pokemonType = char.ToUpper(pokemonType[0]) + pokemonType.Substring(1);
+                    pokemonType = info.ToTitleCase(pokemonMainEntry.Types[0].Type.Name);
                     if (pokemonMainEntry.Types.Length != 1)
                     {
-                        string pokemonSecondType = pokemonMainEntry.Types[1].Type.Name;
-                        pokemonSecondType = char.ToUpper(pokemonSecondType[0]) + pokemonSecondType.Substring(1);
+                        string pokemonSecondType = info.ToTitleCase(pokemonMainEntry.Types[1].Type.Name);
                         pokemonType = $"{pokemonType}/{pokemonSecondType}";
                     }
 
@@ -157,7 +145,6 @@ namespace PokeDex
                     //{
                     //    description = Filter.GetActualDescription(entry);
                     //}
-
                     foreach (var item in specialForms)
                     {
                         if (entry.Contains(item))
@@ -166,9 +153,33 @@ namespace PokeDex
                         }
                     }
                     description = description.Replace("\n", " ").Replace("\f", " "); //Make method for removing weird symbols
-
+                    //====================================================================
+                    //Pokemon like Wurple behave weirdly with this :/
+                    //====================================================================
+                    var evolutions = pokemonEvolutionEntry.chain.evolves_to;
+                    string evolvesTo = "";
+                    if (pokemonEvolutionEntry.chain.evolves_to.Length != 0)
+                    {
+                        evolvesTo = 
+                                    $"||\r\n" +
+                                    $"||Evolution chain: {info.ToTitleCase(pokemonEvolutionEntry.chain.species.Name)} ===> ";
+                        foreach (var item in evolutions)
+                        {
+                            evolvesTo += $"{info.ToTitleCase(item.species.name)} ";
+                            if (item.evolves_to.Length != 0)
+                            {
+                                string complexEvolution = "===> ";
+                                foreach (var i in item.evolves_to)
+                                {
+                                    complexEvolution += $"{info.ToTitleCase(i.species.name)} ";
+                                }
+                                evolvesTo += complexEvolution;
+                            }
+                        }
+                        evolvesTo += "\r\n";
+                    }
                     Console.WriteLine($"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.id}==={pokemonSpeciesEntry.generation.name}\r\n" +
-                        $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.color.name};        {pokemonHabitat}\r\n" +
+                        $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.Color.name};        {pokemonHabitat}\r\n" +
                         $"||\r\n" +
                         $"||Abilities: {abilities}\r\n" +
                         $"||\r\n" +
@@ -176,9 +187,8 @@ namespace PokeDex
                         $"||\r\n" +
                         $"||Description: {description}\r\n" +
                         $"||\r\n" +
-                        $"||Forms: \r\n" +
-                        $"||\r\n" +
-                        $"||Evolution chain: {pokemonSpeciesEntry.evolution_chain}\r\n" +
+                        $"||Forms: \r\n" + 
+                        $"{evolvesTo}" + 
                         $"==================================================================================\r\n");
                     //foreach (var item in pokemonSpeciesEntry.flavor_text_entries)
                     //{

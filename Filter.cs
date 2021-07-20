@@ -128,7 +128,7 @@ namespace PokeDex
             DirectoryInfo directory = new DirectoryInfo(path);
             var fileName = Path.Combine(directory.FullName, "formExceptions.json");
             var json = ReadFile(fileName);
-            var forms = APICall.DeSerializeSpecialJson(json);
+            var forms = APICall.DeserializeSpecialJson(json);
             forms.Specialforms.RemoveAll(f => f.Name != entry);
             var formName = forms.Specialforms[0].Name;
             var description = forms.Specialforms[0].FixedDescription;

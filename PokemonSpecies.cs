@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 public class PokemonSpecies
 {
-    public Color color { get; set; }
-    public Evolution_Chain evolution_chain { get; set; }
+    [JsonProperty(PropertyName = "color")]
+    public Color Color { get; set; }
+    [JsonProperty(PropertyName = "evolution_chain")]
+    public EvolutionChain EvolutionChain { get; set; }
     public object evolves_from_species { get; set; }
     public List<Flavor_Text_Entries> flavor_text_entries { get; set; }
     public object[] form_descriptions { get; set; }
@@ -35,9 +38,10 @@ public class Color
     public string url { get; set; }
 }
 
-public class Evolution_Chain
+public class EvolutionChain
 {
-    public string url { get; set; }
+    [JsonProperty(PropertyName = "url")]
+    public string Url { get; set; }
 }
 
 public class Generation
