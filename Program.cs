@@ -33,6 +33,7 @@ namespace PokeDex
                 string entry = UserInput.GetUserInput();
                 Settings.CheckColors(ConsoleColor.Cyan);
 
+                //==================Move to a CheckForQuit() function
                 var quitCommands = new List<string> { "stop", "exit", "quit", "q" };
                 if (quitCommands.Any(str => str.Contains(entry)))
                 {
@@ -40,6 +41,7 @@ namespace PokeDex
                     break;
                 }
 
+                //=================Move to a CheckForSettings Function
                 if (entry == "settings")
                 {
                     Settings.AlterSettings();
@@ -153,30 +155,70 @@ namespace PokeDex
                         }
                     }
                     description = description.Replace("\n", " ").Replace("\f", " "); //Make method for removing weird symbols
-                    //====================================================================
-                    //Pokemon like Wurple behave weirdly with this :/
-                    //====================================================================
-                    var evolutions = pokemonEvolutionEntry.chain.evolves_to;
-                    string evolvesTo = "";
-                    if (pokemonEvolutionEntry.chain.evolves_to.Length != 0)
+
+                    string pokemonForms = "";
+                    int formsCounter = 0;
+                    if (pokemonSpeciesEntry.varieties.Length > 1)
                     {
-                        evolvesTo = 
-                                    $"||\r\n" +
-                                    $"||Evolution chain: {info.ToTitleCase(pokemonEvolutionEntry.chain.species.Name)} ===> ";
-                        foreach (var item in evolutions)
+                        pokemonForms = "||\r\n" + "||Forms: ";
+                        foreach (var item in pokemonSpeciesEntry.varieties)
                         {
-                            evolvesTo += $"{info.ToTitleCase(item.species.name)} ";
-                            if (item.evolves_to.Length != 0)
+                            formsCounter++;
+                            if (formsCounter == pokemonSpeciesEntry.varieties.Length)
                             {
-                                string complexEvolution = "===> ";
-                                foreach (var i in item.evolves_to)
-                                {
-                                    complexEvolution += $"{info.ToTitleCase(i.species.name)} ";
-                                }
-                                evolvesTo += complexEvolution;
+                                pokemonForms += $"{item.pokemon.name}";
+                            }
+                            else
+                            {
+                                pokemonForms += $"{item.pokemon.name}, ";
                             }
                         }
-                        evolvesTo += "\r\n";
+                        pokemonForms += "\r\n"; 
+                    }
+                          
+                    var evolutions = pokemonEvolutionEntry.chain.evolves_to;
+                    string evolvesTo = "";
+
+                    if (evolutions.Length != 0)
+                    {
+                        //Handles evolution branching if base pokemon has two possible evolutions that then evolve.
+                        //It checks for how many evolutions the base has AND if any of those also evolve.
+                        //(ex: Wurmple to Cascoon OR Silcoon. Then Cascoon to Dustox AND Silcoon to Beautifly.)
+                        if (evolutions.Length > 1 && evolutions.Any(e => e.evolves_to.Length > 0))
+                        {
+                            evolvesTo = $"||\r\n";
+                            foreach (var item in evolutions)
+                            {
+                                evolvesTo += $"||Evolution chain: {info.ToTitleCase(pokemonEvolutionEntry.chain.species.Name)} ===> {info.ToTitleCase(item.species.name)} ";
+                                foreach (var i in item.evolves_to)
+                                {
+                                    evolvesTo += $"===> {info.ToTitleCase(i.species.name)}\r\n";
+                                }
+                            }
+                            evolvesTo += "\r\n";
+                        }
+                        else
+                        //Handles evolution branching if there are no more evolutions after the branch
+                        //(ex: Slowpoke to Slowbro OR Slowking; Poliwag to Poliwhirl to Poliwrath OR Politoad.).
+                        //Allows pokemon like Eevee that do not evolve again to be formatted easily.
+                        {
+                            evolvesTo = $"||\r\n||Evolution chain: {info.ToTitleCase(pokemonEvolutionEntry.chain.species.Name)} ===> ";
+                            foreach (var item in evolutions)
+                            {
+                                evolvesTo += $"{info.ToTitleCase(item.species.name)} ";
+                                if (item.evolves_to.Length != 0)
+                                {
+                                    string complexEvolution = "===> ";
+                                    foreach (var i in item.evolves_to)
+                                    {
+                                        complexEvolution += $"{info.ToTitleCase(i.species.name)} ";
+                                    }
+                                    evolvesTo += complexEvolution;
+                                }
+                            }
+                            evolvesTo += "\r\n";
+                        }
+                        
                     }
                     Console.WriteLine($"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.id}==={pokemonSpeciesEntry.generation.name}\r\n" +
                         $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.Color.name};        {pokemonHabitat}\r\n" +
@@ -186,17 +228,10 @@ namespace PokeDex
                         $"||{pokemonMeasure}\r\n" +
                         $"||\r\n" +
                         $"||Description: {description}\r\n" +
-                        $"||\r\n" +
-                        $"||Forms: \r\n" + 
+                        $"{pokemonForms}" + 
                         $"{evolvesTo}" + 
                         $"==================================================================================\r\n");
-                    //foreach (var item in pokemonSpeciesEntry.flavor_text_entries)
-                    //{
-                    //    if (item.language.name == "en")
-                    //    {
-                    //        Console.WriteLine($"{item.version.name}: {item.flavor_text}\r\n\r\n");
-                    //    }
-                    //}
+
                     /*========================Move to Print Method after testing========================*/
 
                     Settings.CheckColors(ConsoleColor.Cyan);
