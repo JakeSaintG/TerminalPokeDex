@@ -11,10 +11,11 @@ namespace PokeDex
         { 
             Console.WriteLine("==================================================================");
             Console.WriteLine("To exit settings, enter \"return\"");
-            Console.WriteLine("  If you would like to...\r\n   >Change units of measurement, enter \"units\".\r\n   >Change Console Colors, enter \"colors\".");
+            Console.WriteLine("\r\nIf you would like to...\r\n   >Change units of measurement, enter \"units\".\r\n   >Change Console Colors, enter \"colors\".");
+            Console.WriteLine("==================================================================");
             while (true)
             {
-                Console.WriteLine("  Current settings:");
+                Console.WriteLine("\r\nCurrent settings:");
                 if (EmperialMeasureSetting == true)
                 {
                     Console.WriteLine("   >Units of measurement: Metric");

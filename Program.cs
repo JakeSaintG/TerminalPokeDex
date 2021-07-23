@@ -18,65 +18,37 @@ namespace PokeDex
             Console.WriteLine("For settings, enter \"settings\".");
             Console.WriteLine("If you are done, enter \"quit\" to stop searching for Pokemon and close me down.");
 
-            while(true)
+            bool quit = true;
+            while(quit)
             { 
                 Console.Write("What Pokemon do you want more information on? ");
                 Settings.CheckColors(ConsoleColor.Yellow);
                 string entry = Formatting.GetUserInput();
                 Settings.CheckColors(ConsoleColor.Cyan);
 
-                //==================Move to a CheckForQuit() function
-                var quitCommands = new List<string> { "stop", "exit", "quit", "q" };
-                if (quitCommands.Any(str => str.Contains(entry)))
-                {
-                    Console.WriteLine("Goodbye! Thanks for playing!");
-                    break;
-                }
+                quit = Formatting.CheckForQuit(entry);
+                if (quit == false){break;}
 
-                //=================Move to a CheckForSettings Function
                 if (entry == "settings")
                 {
                     Settings.AlterSettings();
                     continue;
                 }
-                entry = Filter.FilterNameEntry(entry);
-                /*
-                 ==============================================
-                Want to display forms for the user to pick from!
-                 ==============================================                 
-                 */
-                var displayOptions = new List<Result>(pokeList.Results.Where(p => p.Name.Contains(entry)));
+                entry = Formatting.FilterNameEntry(entry);
 
-                //Need to skip pumpkaboo, greninja, gourgeist, skip TOTEMS
-
-                if (displayOptions.Count > 1)
-                {
-                    Console.WriteLine("\r\nYour entry matches a few options. Which one do you want?\r\n");
-                    foreach (var item in displayOptions)
-                    {
-                        Console.WriteLine(item.Name);
-                    }
-                    Settings.CheckColors(ConsoleColor.Yellow);
-                    entry = Formatting.GetUserInput();
-                    Settings.CheckColors(ConsoleColor.Cyan);
-                }
-                /*
-                 ==============================================
-                Want to display forms for the user to pick from!
-                 ==============================================                 
-                 */
+                //Displays possible matches that the user may be looking for
+                entry = Formatting.DisplayOptions(entry, pokeList);
 
                 if (pokeList.Results.Any(p => p.Name == entry))
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-
                     var pokemonMainEntry = APICall.GetEntry(entry);
                     var pokemonSpeciesEntry = APICall.GetEntrySpecies(pokemonMainEntry.Species.Url);
                     var pokemonEvolutionEntry = APICall.GetEntryEvolutionChain(pokemonSpeciesEntry.EvolutionChain.Url);
 
                     /*========================Move to Print Method after testing========================*/   
                     string pokemonName = pokemonMainEntry.Name;
-                    pokemonName = Filter.FormatNameOuput(pokemonMainEntry);
+                    pokemonName = Formatting.FormatNameOuput(pokemonMainEntry);
               
                     var info = CurrentCulture.TextInfo;
                     pokemonName = info.ToTitleCase(pokemonName);
@@ -98,15 +70,24 @@ namespace PokeDex
                     //Handles: System.NullReferenceException
 
                     string abilities = "";
-                    foreach (var ability in pokemonMainEntry.Abilities) //Maybe make this prettier with LINQ later?
+                    if (pokemonMainEntry.Abilities.Length > 1)
+                    {
+                        abilities = $"Abilities: ";
+                    }
+                    else
+                    {
+                        abilities = $"Ability: ";
+                    }
+
+                    foreach (var ability in pokemonMainEntry.Abilities)
                     {
                         if (ability.Slot == 1)
                         {
-                            abilities = abilities + ability.Ability.Name;
+                            abilities += Formatting.FormatProperNouns(ability.Ability.Name);
                         }
                         else
                         {
-                            abilities = abilities + ", " + ability.Ability.Name;
+                            abilities += ", " + Formatting.FormatProperNouns(ability.Ability.Name);
                         }
                     }
 
@@ -143,7 +124,7 @@ namespace PokeDex
                     {
                         if (entry.Contains(item))
                         {
-                            description = Filter.GetActualDescription(entry);
+                            description = Formatting.GetActualDescription(entry);
                         }
                     }
                     description = description.Replace("\n", " ").Replace("\f", " "); //Make method for removing weird symbols
@@ -158,11 +139,11 @@ namespace PokeDex
                             formsCounter++;
                             if (formsCounter == pokemonSpeciesEntry.varieties.Length)
                             {
-                                pokemonForms += $"{item.pokemon.name}";
+                                pokemonForms += $"{Formatting.FormatProperNouns(item.pokemon.name)}";
                             }
                             else
                             {
-                                pokemonForms += $"{item.pokemon.name}, ";
+                                pokemonForms += $"{Formatting.FormatProperNouns(item.pokemon.name)}, ";
                             }
                         }
                         pokemonForms += "\r\n"; 
@@ -215,7 +196,7 @@ namespace PokeDex
                     Console.WriteLine($"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.id}==={pokemonSpeciesEntry.generation.name}\r\n" +
                         $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.Color.name};        {pokemonHabitat}\r\n" +
                         $"||\r\n" +
-                        $"||Abilities: {abilities}\r\n" +
+                        $"||{abilities}\r\n" +
                         $"||\r\n" +
                         $"||{pokemonMeasure}\r\n" +
                         $"||\r\n" +
