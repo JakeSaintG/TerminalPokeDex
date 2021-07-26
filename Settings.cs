@@ -18,11 +18,11 @@ namespace PokeDex
                 Console.WriteLine("\r\nCurrent settings:");
                 if (EmperialMeasureSetting == true)
                 {
-                    Console.WriteLine("   >Units of measurement: Metric");
+                    Console.WriteLine("   >Units of measurement: Emperial");
                 }
                 else 
                 {
-                    Console.WriteLine("   >Units of measurement: Emperial");
+                    Console.WriteLine("   >Units of measurement: Metric");
                 }
                 if (DefaultConsole == false)
                 {
