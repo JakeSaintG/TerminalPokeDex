@@ -57,7 +57,6 @@ namespace PokeDex
             //Formatting method.
                 //Will need a name-formatting method for output
                     //Will have to fill remaining space after name with "===" to keep uniform; "feraligatr" is max char length(10) in game so "Ditto===="
-                    //Will have spit out pokemon names properly formatted ("hooh"=>"Ho-oh") ("farfetchd"=>"Farfetch'd") ("mrmime"=>"Mr. Mime")
 
                 //Formatting notes
                     //Will have to change between singular and plural; (Type or Types)

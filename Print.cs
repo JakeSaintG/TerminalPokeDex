@@ -26,9 +26,9 @@ namespace PokeDex
         private static string PrintPokemonHabitat(PokemonSpecies pokemonSpeciesEntry)
         {
             var pokemonHabitat = "";
-            if (pokemonSpeciesEntry.habitat != null)
+            if (pokemonSpeciesEntry.Habitat != null)
             {
-                pokemonHabitat = $"Habitat: {pokemonSpeciesEntry.habitat.name}";
+                pokemonHabitat = $"Habitat: {pokemonSpeciesEntry.Habitat.Name}";
             }
             return pokemonHabitat;
             //Some Pokemon don't have habitats. This just removes habitat from the output if none exists.
@@ -82,8 +82,8 @@ namespace PokeDex
         }
         private static string PrintPokemonDescription(PokemonSpecies pokemonSpeciesEntry, string entry) 
         {
-            pokemonSpeciesEntry.flavor_text_entries.RemoveAll(f => f.language.name != "en");
-            var description = pokemonSpeciesEntry.flavor_text_entries[0].flavor_text;
+            pokemonSpeciesEntry.FlavorTextEntries.RemoveAll(f => f.Language.Name != "en");
+            var description = pokemonSpeciesEntry.FlavorTextEntries[0].FlavorText;
             var specialDescriptionForms = new List<string> { "-galar", "-alola", "-gmax", "-mega", "rotom", "-black", "-white" };
             var formsList = new List<SpecialForms>();
             //In order for this to work, I probably need to deserialize the forms JSON on startup.
@@ -104,19 +104,19 @@ namespace PokeDex
         {
             string pokemonForms = "";
             int formsCounter = 0;
-            if (pokemonSpeciesEntry.varieties.Length > 1)
+            if (pokemonSpeciesEntry.Varieties.Length > 1)
             {
                 pokemonForms = "||\r\n" + "||Forms: ";
-                foreach (var item in pokemonSpeciesEntry.varieties)
+                foreach (var item in pokemonSpeciesEntry.Varieties)
                 {
                     formsCounter++;
-                    if (formsCounter == pokemonSpeciesEntry.varieties.Length)
+                    if (formsCounter == pokemonSpeciesEntry.Varieties.Length)
                     {
-                        pokemonForms += $"{Formatting.FormatProperNouns(item.pokemon.name)}";
+                        pokemonForms += $"{Formatting.FormatProperNouns(item.Pokemon.Name)}";
                     }
                     else
                     {
-                        pokemonForms += $"{Formatting.FormatProperNouns(item.pokemon.name)}, ";
+                        pokemonForms += $"{Formatting.FormatProperNouns(item.Pokemon.Name)}, ";
                     }
                 }
                 pokemonForms += "\r\n";
@@ -127,21 +127,21 @@ namespace PokeDex
         {
             var info = CurrentCulture.TextInfo; //Need to figure out how to make this a field.....
             string evolvesTo = "";
-            var evolutions = pokemonEvolutionEntry.chain.evolves_to;
+            var evolutions = pokemonEvolutionEntry.Chain.EvolvesTo;
             if (evolutions.Length != 0)
             {
                 //Handles evolution branching if base pokemon has two possible evolutions that then evolve.
                 //It checks for how many evolutions the base has AND if any of those also evolve.
                 //(ex: Wurmple to Cascoon OR Silcoon. Then Cascoon to Dustox AND Silcoon to Beautifly.)
-                if (evolutions.Length > 1 && evolutions.Any(e => e.evolves_to.Length > 0))
+                if (evolutions.Length > 1 && evolutions.Any(e => e.EvolvesTo1.Length > 0))
                 {
                     evolvesTo = $"||\r\n";
                     foreach (var item in evolutions)
                     {
-                        evolvesTo += $"||Evolution chain: {info.ToTitleCase(pokemonEvolutionEntry.chain.species.Name)} ===> {info.ToTitleCase(item.species.name)} ";
-                        foreach (var i in item.evolves_to)
+                        evolvesTo += $"||Evolution chain: {info.ToTitleCase(pokemonEvolutionEntry.Chain.SpeciesEvo.Name)} ===> {info.ToTitleCase(item.Species.Name)} ";
+                        foreach (var i in item.EvolvesTo1)
                         {
-                            evolvesTo += $"===> {info.ToTitleCase(i.species.name)}\r\n";
+                            evolvesTo += $"===> {info.ToTitleCase(i.Species.Name)}\r\n";
                         }
                     }
                     evolvesTo += "\r\n";
@@ -151,24 +151,24 @@ namespace PokeDex
                 //(ex: Slowpoke to Slowbro OR Slowking; Poliwag to Poliwhirl to Poliwrath OR Politoad.).
                 //Allows pokemon like Eevee that do not evolve again to be formatted easily.
                 {
-                    evolvesTo = $"||\r\n||Evolution chain: {info.ToTitleCase(pokemonEvolutionEntry.chain.species.Name)} ===> ";
+                    evolvesTo = $"||\r\n||Evolution chain: {info.ToTitleCase(pokemonEvolutionEntry.Chain.SpeciesEvo.Name)} ===> ";
                     foreach (var item in evolutions)
                     {
-                        evolvesTo += $"{info.ToTitleCase(item.species.name)} ";
-                        if (item.evolves_to.Length != 0)
+                        evolvesTo += $"{info.ToTitleCase(item.Species.Name)} ";
+                        if (item.EvolvesTo1.Length != 0)
                         {
                             string complexEvolution = "===> ";
                             int count = 0;
-                            foreach (var i in item.evolves_to)
+                            foreach (var i in item.EvolvesTo1)
                             {
                                 count++;
-                                if (count == item.evolves_to.Length)
+                                if (count == item.EvolvesTo1.Length)
                                 {
-                                    complexEvolution += $"{info.ToTitleCase(i.species.name)} ";
+                                    complexEvolution += $"{info.ToTitleCase(i.Species.Name)} ";
                                 }
                                 else
                                 {
-                                    complexEvolution += $"{info.ToTitleCase(i.species.name)}, ";
+                                    complexEvolution += $"{info.ToTitleCase(i.Species.Name)}, ";
                                 }
 
                             }
@@ -191,8 +191,8 @@ namespace PokeDex
             string pokemonForms = PrintPokemonForms(pokemonSpeciesEntry);
             string evolvesTo = PrintPokemonEvolutions(pokemonEvolutionEntry);
 
-            string completedEntry = $"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.id}==={pokemonSpeciesEntry.generation.name}\r\n" +
-                $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.Color.name};        {pokemonHabitat}\r\n" +
+            string completedEntry = $"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.ID}==={pokemonSpeciesEntry.Generation.Name}\r\n" +
+                $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.Color.Name};        {pokemonHabitat}\r\n" +
                 $"||\r\n" +
                 $"||{abilities}\r\n" +
                 $"||\r\n" +
