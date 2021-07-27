@@ -1,10 +1,6 @@
-using System;
 using Newtonsoft.Json;
 using System.Net;
 using System.IO;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
-using System.Linq;
 
 namespace PokeDex
 {

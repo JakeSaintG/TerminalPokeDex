@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 
 namespace PokeDex
 {
-
     public class PokemonEntry
     {
         [JsonProperty(PropertyName = "abilities")]
