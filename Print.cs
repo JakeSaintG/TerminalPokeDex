@@ -12,6 +12,50 @@ namespace PokeDex
             var info = CurrentCulture.TextInfo;
             return pokemonName = info.ToTitleCase(Formatting.FormatNameOuput(pokemonMainEntry));
         }
+
+        private static string PrintPokemonGeneration(PokemonSpecies pokemonSpeciesEntry)
+        {
+            //There's a better way to do this but I would like to avoid another call to PokeAPI for something so small:
+            //1. Make a call to https://pokeapi.co/api/v2/generation
+            //2. Iterate through the array.
+            //3. If Generation.Name === i, take the index number, add 1, put it in the string "Generation: ${indexNumber}"
+
+            var gen = pokemonSpeciesEntry.Generation.Name;
+            if (gen.Contains("-viii"))
+            {
+                gen = "Generation: 8";
+            }
+            else if (gen.Contains("-vii"))
+            {
+                gen = "Generation: 7";
+            }
+            else if (gen.Contains("-vi"))
+            {
+                gen = "Generation: 6";
+            }
+            else if (gen.Contains("-v"))
+            {
+                gen = "Generation: 5";
+            }
+            else if (gen.Contains("-iv"))
+            {
+                gen = "Generation: 4";
+            }
+            else if (gen.Contains("-iii"))
+            {
+                gen = "Generation: 3";
+            }
+            else if (gen.Contains("-ii"))
+            {
+                gen = "Generation: 2";
+            }
+            else if (gen.Contains("-i"))
+            {
+                gen = "Generation: 1";
+            }
+
+            return gen;
+        }
         private static string PrintPokemonType(PokemonEntry pokemonMainEntry)
         {
             var info = CurrentCulture.TextInfo; //Need to figure out how to make this a field.....
@@ -183,6 +227,7 @@ namespace PokeDex
         public static string PrintPokemonPokedexEntry(PokemonEntry pokemonMainEntry,PokemonSpecies pokemonSpeciesEntry, PokemonEvolution pokemonEvolutionEntry, string entry)
         {
             string pokemonName = PrintPokemonName(pokemonMainEntry);
+            string pokemonGen = PrintPokemonGeneration(pokemonSpeciesEntry);
             string pokemonType = PrintPokemonType(pokemonMainEntry);
             string pokemonHabitat = PrintPokemonHabitat(pokemonSpeciesEntry);
             string abilities = PrintPokemonAbilities(pokemonMainEntry);
@@ -191,7 +236,7 @@ namespace PokeDex
             string pokemonForms = PrintPokemonForms(pokemonSpeciesEntry);
             string evolvesTo = PrintPokemonEvolutions(pokemonEvolutionEntry);
 
-            string completedEntry = $"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.ID}==={pokemonSpeciesEntry.Generation.Name}\r\n" +
+            string completedEntry = $"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.ID}==={pokemonGen}\r\n" +
                 $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.Color.Name};        {pokemonHabitat}\r\n" +
                 $"||\r\n" +
                 $"||{abilities}\r\n" +
