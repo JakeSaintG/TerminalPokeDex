@@ -21,6 +21,20 @@
 - Built a conversion setting that converts output data from metric measurements to imperial measurements if the user chooses to utilize it.
  
 #### Examples and Special Instructions
+Enter "Meowth" as a Pokemon choice.
+- Meowth demonstrates Alolan, Galarian, and Gigantamax form options.
+- Each possible form will output a different, unique entry.
+
+Enter "Pichu" as a Pokemon choice.
+- Pichu is a basic Pokemon with no possible forms.
+- Easiest to demonstrate a simple Pokedex entry.
+
+Enter "Wurmple" and "Poliwag" as a Pokemon.
+- These Pokemon have branched evolutions and will demonstrate the Evolution Chain output.
+
+Enter "settings"
+- This will allow the user to change the units of measurement that are display for each Pokemon's height and weight.
+- This will allow the user to alter the terminal colors to their liking.
 
  
 #### Special Thanks

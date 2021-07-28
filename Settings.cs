@@ -11,10 +11,10 @@ namespace PokeDex
 
         public static void AlterSettings()
         { 
-            Console.WriteLine("==================================================================");
+            Console.WriteLine("Entering settings...\r\n\r\n==================================================================================");
             Console.WriteLine("To exit settings, enter \"return\"");
             Console.WriteLine("\r\nIf you would like to...\r\n   >Change units of measurement, enter \"units\".\r\n   >Change Console Colors, enter \"colors\".");
-            Console.WriteLine("==================================================================");
+            Console.WriteLine("==================================================================================");
             while (true)
             {
                 WriteFullLine("\r\nCurrent settings:");
@@ -60,7 +60,7 @@ namespace PokeDex
                 else if (CheckForQuit(settingsInput) == false)
                 {
                     WriteFullLine("Leaving settings.");
-                    WriteFullLine("==================================================================");
+                    WriteFullLine("\r\n==================================================================================\r\n");
                     break;
                 }
                 else
