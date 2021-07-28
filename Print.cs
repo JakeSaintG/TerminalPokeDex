@@ -6,11 +6,27 @@ namespace PokeDex
 {
     class Print
     {
-        private static string PrintPokemonName(PokemonEntry pokemonMainEntry) 
+        private static string PrintPokemonName(PokemonEntry pokemonMainEntry, PokemonSpecies pokemonSpeciesEntry) 
         {
             string pokemonName = pokemonMainEntry.Name;
             var info = CurrentCulture.TextInfo;
-            return pokemonName = info.ToTitleCase(Formatting.FormatNameOuput(pokemonMainEntry));
+            pokemonName = info.ToTitleCase(Formatting.FormatNameOuput(pokemonMainEntry));
+
+            //This fills the space between the end of the Pokemon's name and the beginning of it's Dex Number.
+            //Makes sure that the bottom and top are of even length.
+            int totalLength = pokemonName.Length + pokemonSpeciesEntry.ID.ToString().Length;
+            for (int i = totalLength; i <= 61; i++)
+            {
+                pokemonName += "=";
+            }
+
+            return pokemonName;
+        }
+
+        public static string WrapDescriptionText(string textToWrap)
+        {
+            string wrappedText = "";
+            return wrappedText;
         }
 
         private static string PrintPokemonGeneration(PokemonSpecies pokemonSpeciesEntry)
@@ -53,7 +69,6 @@ namespace PokeDex
             {
                 gen = "Generation: 1";
             }
-
             return gen;
         }
         private static string PrintPokemonType(PokemonEntry pokemonMainEntry)
@@ -226,7 +241,7 @@ namespace PokeDex
         }
         public static string PrintPokemonPokedexEntry(PokemonEntry pokemonMainEntry,PokemonSpecies pokemonSpeciesEntry, PokemonEvolution pokemonEvolutionEntry, string entry)
         {
-            string pokemonName = PrintPokemonName(pokemonMainEntry);
+            string pokemonName = PrintPokemonName(pokemonMainEntry, pokemonSpeciesEntry);
             string pokemonGen = PrintPokemonGeneration(pokemonSpeciesEntry);
             string pokemonType = PrintPokemonType(pokemonMainEntry);
             string pokemonHabitat = PrintPokemonHabitat(pokemonSpeciesEntry);
@@ -235,8 +250,8 @@ namespace PokeDex
             string description = PrintPokemonDescription(pokemonSpeciesEntry, entry);
             string pokemonForms = PrintPokemonForms(pokemonSpeciesEntry);
             string evolvesTo = PrintPokemonEvolutions(pokemonEvolutionEntry);
-
-            string completedEntry = $"\r\n{pokemonName}================================================No. {pokemonSpeciesEntry.ID}==={pokemonGen}\r\n" +
+            string bottomBar = "==================================================================================";
+            string completedEntry = $"\r\n{pokemonName}No. {pokemonSpeciesEntry.ID}==={pokemonGen}\r\n" +
                 $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.Color.Name};        {pokemonHabitat}\r\n" +
                 $"||\r\n" +
                 $"||{abilities}\r\n" +
@@ -246,7 +261,7 @@ namespace PokeDex
                 $"||Description: {description}\r\n" +
                 $"{pokemonForms}" +
                 $"{evolvesTo}" +
-                $"==================================================================================\r\n";
+                $"{bottomBar}\r\n";
             return completedEntry;
         }
     }

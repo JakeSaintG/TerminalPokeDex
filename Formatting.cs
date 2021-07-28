@@ -36,15 +36,33 @@ namespace PokeDex
 
             if (displayOptions.Count > 1)
             {
-                Console.WriteLine("\r\nYour entry matches a few options. Which one do you want?\r\n");
+                Console.WriteLine("\r\nYour entry matches a few options. Please enter the number that you are looking for.");
+                int counter = 1;
                 foreach (var item in displayOptions)
                 {
-
-                    Console.WriteLine(item.Name);
-
+                    var pokemonName = item.Name;
+                    Settings.CheckColors(ConsoleColor.White);
+                    Console.WriteLine($"    Press {counter++}: {item.Name}");
                 }
                 Settings.CheckColors(ConsoleColor.Yellow);
-                entry = GetUserInput();
+
+                var userChoice = Console.ReadLine();
+                int number;
+                bool numberEntered = false;
+                while (!numberEntered)
+                {
+                    bool success = int.TryParse(userChoice, out number);
+                    if (success)
+                    {
+                        numberEntered = true;
+                        entry = displayOptions[number - 1].Name;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Please enter a number.");
+                        userChoice = Console.ReadLine();
+                    }
+                }             
                 Settings.CheckColors(ConsoleColor.Cyan);
                 return FilterNameEntry(entry);
             }
@@ -68,7 +86,11 @@ namespace PokeDex
 
                 //If the user did not put anything into the submission input, generate a MissingNo Error.
             };
-            if (enteredPokemon.Contains("farfet"))
+            if (enteredPokemon.Contains("farfet") && enteredPokemon.Contains("-galar"))
+            {
+                enteredPokemon = "farfetchd-galar";
+            }
+            else if (enteredPokemon.Contains("farfet"))
             {
                 enteredPokemon = "farfetchd";
             }
@@ -87,6 +109,10 @@ namespace PokeDex
             else if (enteredPokemon.Contains("porygon") && enteredPokemon.Contains("z"))
             {
                 enteredPokemon = "porygon-z";
+            }
+            else if (enteredPokemon.Contains("mime") && enteredPokemon.Contains("-galar"))
+            {
+                enteredPokemon = "mr-mime-galar";
             }
             else if (enteredPokemon.Contains("mime") && enteredPokemon.Contains("mr"))
             {
@@ -108,9 +134,40 @@ namespace PokeDex
         public static string FormatNameOuput(PokemonEntry pokemonEntry)
         {
             var alterName = pokemonEntry.Name;
+            var specialName = new List<string> { "-galar", "-alola", "-gmax", "-mega" };
+            if (specialName.Any(a => a.Contains(a)))
+            {
+                if (alterName.Contains("-alola"))
+                {
+                    alterName = $"Alolan {alterName}";
+                }
+                if (alterName.Contains("-galar"))
+                {
+                    alterName = $"Galarian {alterName}";
+                }
+                if (alterName.Contains("-gmax"))
+                {
+                    alterName = $"Gigantamax {alterName}";
+                }
+                if (alterName.Contains("-mega"))
+                {
+                        alterName = $"Mega {alterName}";                
+                }
+            } 
             if (alterName.Contains("-"))
             {
-                alterName = alterName.Substring(0, alterName.IndexOf("-"));
+                if (alterName.Contains("-x"))
+                {
+                    alterName = $"{alterName.Substring(0, alterName.IndexOf("-"))} X";
+                }
+                else if (alterName.Contains("-y"))
+                {
+                    alterName = $"{alterName.Substring(0, alterName.IndexOf("-"))} Y";
+                }
+                else
+                {
+                    alterName = alterName.Substring(0, alterName.IndexOf("-"));
+                }              
                 // Gets a substring from the beginning of the string to the first instance of the character "-". 
                 // Removes hyphens and other form info from the end of the pokemon name.
             };
@@ -140,7 +197,7 @@ namespace PokeDex
             }; // Fixes Mr. Mime's name
             if (pokemonEntry.Id == 10165)
             {
-                alterName = $"{alterName}. Mime";
+                alterName = $"Galarian Mr. Mime";
             }; // Fixes Galar Mr. Mime's name
             if (pokemonEntry.Id == 866)
             {
@@ -152,7 +209,7 @@ namespace PokeDex
             }; // Fixes Farfetch'd's name
             if (pokemonEntry.Id == 10163)
             {
-                alterName = "Farfetch'd";
+                alterName = "Galarian Farfetch'd";
             }; // Fixes Galar Farfetch'd's name
             if (pokemonEntry.Id == 784)
             {
@@ -170,6 +227,14 @@ namespace PokeDex
             {
                 alterName = "Type: Null";
             }; // Fixes name
+            if (pokemonEntry.Id == 10178 || pokemonEntry.Id == 10220)
+            {
+                alterName += " Low Key";
+            }
+            if (pokemonEntry.Id == 849 || pokemonEntry.Id == 10210)
+            {
+                alterName += " Amped";
+            }
             return alterName;
         }
 
