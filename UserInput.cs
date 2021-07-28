@@ -1,7 +1,0 @@
-namespace PokeDex
-{
-    class UserInput
-    { 
-    
-    }
-}
