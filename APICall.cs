@@ -13,21 +13,24 @@ namespace PokeDex
         private static byte[] WebRequest(string url)
         {
             var data = new byte[] { };           
-            bool test = true;
-            while (test)
+            bool tryAgain = true;
+            while (tryAgain)
             {
                 try
                 {
                     data = webClient.DownloadData(url);
-                    test = false;
+                    tryAgain = false;
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Hmm...It would appear that I do not have a connection to PokeAPI.");
                     Console.WriteLine("Enter \"quit\" to exit the program. Enter anything to try again.");
                     string errorEntry = Console.ReadLine();             
-                    bool quit = Formatting.CheckForQuit(errorEntry);
-                    if (quit == false) { Environment.Exit(1);}
+                    bool quit = Settings.CheckForQuit(errorEntry);
+                    if (quit == false) {
+                        Console.WriteLine("Goodbye! Thank you for utilizing my services!");
+                        Environment.Exit(1);
+                    }
                 }
             }
             return data;

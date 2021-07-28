@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using static System.Globalization.CultureInfo;
 
-
 namespace PokeDex
 {
     class Formatting
@@ -12,64 +11,6 @@ namespace PokeDex
         public static string GetUserInput()
         {
             return Console.ReadLine().ToLower();
-        }
-
-        public static bool CheckForQuit(string entry)
-        {
-            var quitCommands = new List<string> { "stop", "exit", "quit", "q" };
-            if (quitCommands.Any(str => str.Contains(entry)))
-            {
-                Console.WriteLine("Goodbye! Thank you for utilizing my services!");
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        public static string DisplayOptions(string entry, PokeList pokeList)
-        {
-            var skipForms = new List<string> { "-small", "-super", "-average", "-large", "-battle-bond", "-ash" };
-            var displayOptions = new List<Result>(pokeList.Results.Where(p => p.Name.Contains(entry)));
-            //Goal: If any of the names in displayOptions contain any of the strings in skipForms, then skip displaying options and send the fist item in displayOptions to API
-
-            if (displayOptions.Count > 1)
-            {
-                Console.WriteLine("\r\nYour entry matches a few options. Please enter the number that you are looking for.");
-                int counter = 1;
-                foreach (var item in displayOptions)
-                {
-                    var pokemonName = item.Name;
-                    Settings.CheckColors(ConsoleColor.White);
-                    Console.WriteLine($"    Press {counter++}: {item.Name}");
-                }
-                Settings.CheckColors(ConsoleColor.Yellow);
-
-                var userChoice = Console.ReadLine();
-                int number;
-                bool numberEntered = false;
-                while (!numberEntered)
-                {
-                    bool success = int.TryParse(userChoice, out number);
-                    if (success)
-                    {
-                        numberEntered = true;
-                        entry = displayOptions[number - 1].Name;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Please enter a number.");
-                        userChoice = Console.ReadLine();
-                    }
-                }             
-                Settings.CheckColors(ConsoleColor.Cyan);
-                return FilterNameEntry(entry);
-            }
-            else 
-            {
-                return entry;
-            }
         }
 
         public static string FormatProperNouns(string name)
@@ -151,7 +92,7 @@ namespace PokeDex
                 }
                 if (alterName.Contains("-mega"))
                 {
-                        alterName = $"Mega {alterName}";                
+                    alterName = $"Mega {alterName}";                
                 }
             } 
             if (alterName.Contains("-"))

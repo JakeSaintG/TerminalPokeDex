@@ -8,6 +8,60 @@ namespace PokeDex
 {
     class Print
     {
+        public static string DisplayOptions(string entry, PokeList pokeList)
+        {
+            var skipForms = new List<string> { "-small", "-super", "-average", "-large", "-battle-bond", "-ash" };
+            var displayOptions = new List<Result>(pokeList.Results.Where(p => p.Name.Contains(entry)));
+            //Goal: If any of the names in displayOptions contain any of the strings in skipForms, then skip displaying options and send the fist item in displayOptions to API
+
+            if (displayOptions.Count > 1)
+            {
+                Console.WriteLine("\r\nYour entry matches a few options. Please enter the number that you are looking for.");
+                int counter = 1;
+                foreach (var item in displayOptions)
+                {
+                    string pokemonName = Formatting.FormatProperNouns(item.Name);
+
+                    Settings.CheckColors(ConsoleColor.White);
+                    Console.WriteLine($"    Press {counter++}: {pokemonName}");
+                }
+                Settings.CheckColors(ConsoleColor.Yellow);
+
+                var userChoice = Console.ReadLine();
+                int number;
+                bool numberEntered = false;
+                while (!numberEntered)
+                {
+                    bool success = int.TryParse(userChoice, out number);
+                    if (!success)
+                    {
+                        Settings.CheckColors(ConsoleColor.Cyan);
+                        Console.WriteLine($"Please enter a number.");
+                        Settings.CheckColors(ConsoleColor.Yellow);
+                        userChoice = Console.ReadLine();
+                    }
+                    else if (number > displayOptions.Count || number <= 0)
+                    {
+                        Settings.CheckColors(ConsoleColor.Cyan);
+                        Console.WriteLine($"That's not one of the options...try again please.");
+                        Settings.CheckColors(ConsoleColor.Yellow);
+                        userChoice = Console.ReadLine();
+                    }
+                    else if (success)
+                    {
+                        numberEntered = true;
+                        entry = displayOptions[number - 1].Name;
+                    }
+
+                }
+                Settings.CheckColors(ConsoleColor.Cyan);
+                return Formatting.FilterNameEntry(entry);
+            }
+            else
+            {
+                return entry;
+            }
+        }
         private static string PrintPokemonName(PokemonEntry pokemonMainEntry, PokemonSpecies pokemonSpeciesEntry) 
         {
             string pokemonName = pokemonMainEntry.Name;

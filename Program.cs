@@ -24,8 +24,11 @@ namespace PokeDex
                 string entry = Formatting.GetUserInput();
                 Settings.CheckColors(ConsoleColor.Cyan);
 
-                quit = Formatting.CheckForQuit(entry);
-                if (quit == false){break;}
+                quit = Settings.CheckForQuit(entry);
+                if (quit == false){
+                    Console.WriteLine("Goodbye! Thank you for utilizing my services!");
+                    break;
+                }
 
                 if (entry == "settings")
                 {
@@ -35,7 +38,7 @@ namespace PokeDex
                 entry = Formatting.FilterNameEntry(entry);
 
                 //Displays possible matches that the user may be looking for
-                entry = Formatting.DisplayOptions(entry, pokeList);
+                entry = Print.DisplayOptions(entry, pokeList);
 
                 if (pokeList.Results.Any(p => p.Name == entry))
                 {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PokeDex
 {
@@ -15,22 +17,22 @@ namespace PokeDex
             Console.WriteLine("==================================================================");
             while (true)
             {
-                Console.WriteLine("\r\nCurrent settings:");
+                WriteFullLine("\r\nCurrent settings:");
                 if (EmperialMeasureSetting == true)
                 {
-                    Console.WriteLine("   >Units of measurement: Emperial");
+                    WriteFullLine("   >Units of measurement: Emperial");
                 }
                 else 
                 {
-                    Console.WriteLine("   >Units of measurement: Metric");
+                    WriteFullLine("   >Units of measurement: Metric");
                 }
                 if (DefaultConsole == false)
                 {
-                    Console.WriteLine("   >Current console: Colorful");
+                    WriteFullLine("   >Current console: Colorful");
                 }
                 else
                 {
-                    Console.WriteLine("   >Current console: Default");
+                    WriteFullLine("   >Current console: Default");
                 }
 
                 string settingsInput = Console.ReadLine().ToLower();
@@ -46,6 +48,7 @@ namespace PokeDex
                     {
                         Console.BackgroundColor = ConsoleColor.Black;
                         Console.ForegroundColor = ConsoleColor.White;
+                        WriteFullLine("");
                     }
                     else 
                     {
@@ -54,17 +57,22 @@ namespace PokeDex
                     }
 
                 }
-                else if (settingsInput == "return")
+                else if (CheckForQuit(settingsInput) == false)
                 {
-                    Console.WriteLine("Leaving settings.");
-                    Console.WriteLine("==================================================================");
+                    WriteFullLine("Leaving settings.");
+                    WriteFullLine("==================================================================");
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Please enter \"units\" or \"colors\" to alter settings. Otherwise, enter \"return\" to exit settings.");
+                    WriteFullLine("Please enter \"units\" or \"colors\" to alter settings. Otherwise, enter \"return\" to exit settings.");
                 }
             }
+        }
+
+        public static void WriteFullLine(string value)
+        {
+            Console.WriteLine(value.PadRight(Console.WindowWidth));
         }
 
         public static void CheckColors(ConsoleColor color)
@@ -82,6 +90,19 @@ namespace PokeDex
                 Console.BackgroundColor = ConsoleColor.DarkRed;
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Clear();
+            }
+        }
+
+        public static bool CheckForQuit(string entry)
+        {
+            var quitCommands = new List<string> { "stop", "exit", "quit", "q", "return" };
+            if (quitCommands.Any(str => str.Contains(entry)))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }
