@@ -249,19 +249,34 @@ namespace PokeDex
             var formName = forms.Specialforms[0].Name;
             var description = forms.Specialforms[0].FixedDescription;
             return description;
+        }
 
-
-            //darmanitan (zen, zen-galar, etc) may be a pain
-
-            //kyurem has different entries for white/black forms
-
-            //Toxtricty may be an issue...
-
-            //alcreme has 100000 entries for each flavor and one for g-max (g-max is listed first...)
-
-            //urshifu may also be a pain
-
-            //farfetched may also be a pain :/
+        public static string WrapDescriptionText(string textToWrap)
+        {
+            string wrappedText = "";
+            int counter = 0;
+            foreach (var character in textToWrap)
+            {
+                counter++;
+                if (counter >= 60)
+                {
+                    if (character == ' ')
+                    {
+                        string replaceChar = character.ToString();
+                        wrappedText += replaceChar.Replace(" ", "\r\n||");
+                        counter = 0;
+                    }
+                    else
+                    {
+                        wrappedText += character;
+                    }
+                }
+                else
+                {
+                    wrappedText += character;
+                }
+            }
+            return wrappedText;
         }
 
         public static string ReadFile(string fileName)

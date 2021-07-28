@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using static System.Globalization.CultureInfo;
 
 namespace PokeDex
@@ -21,12 +23,6 @@ namespace PokeDex
             }
 
             return pokemonName;
-        }
-
-        public static string WrapDescriptionText(string textToWrap)
-        {
-            string wrappedText = "";
-            return wrappedText;
         }
 
         private static string PrintPokemonGeneration(PokemonSpecies pokemonSpeciesEntry)
@@ -247,7 +243,7 @@ namespace PokeDex
             string pokemonHabitat = PrintPokemonHabitat(pokemonSpeciesEntry);
             string abilities = PrintPokemonAbilities(pokemonMainEntry);
             string pokemonMeasure = PrintPokemonMeasurements(pokemonMainEntry);
-            string description = PrintPokemonDescription(pokemonSpeciesEntry, entry);
+            string description = Formatting.WrapDescriptionText(PrintPokemonDescription(pokemonSpeciesEntry, entry));
             string pokemonForms = PrintPokemonForms(pokemonSpeciesEntry);
             string evolvesTo = PrintPokemonEvolutions(pokemonEvolutionEntry);
             string bottomBar = "==================================================================================";
