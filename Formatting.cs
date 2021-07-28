@@ -251,14 +251,14 @@ namespace PokeDex
             return description;
         }
 
-        public static string WrapDescriptionText(string textToWrap)
+        public static string WrapText(string textToWrap)
         {
             string wrappedText = "";
             int counter = 0;
             foreach (var character in textToWrap)
             {
                 counter++;
-                if (counter >= 60)
+                if (counter >= 65)
                 {
                     if (character == ' ')
                     {

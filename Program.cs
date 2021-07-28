@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace PokeDex
@@ -52,15 +53,6 @@ namespace PokeDex
                     Settings.CheckColors(ConsoleColor.Cyan);
                 }         
             }
-            //Send input for testing (catch misspelling, ToLower(), Closest match with regex?maybe?, etc)
-
-            //Formatting method.
-                //Will need a name-formatting method for output
-                    //Will have to fill remaining space after name with "===" to keep uniform; "feraligatr" is max char length(10) in game so "Ditto===="
-
-                //Formatting notes
-                    //Will have to change between singular and plural; (Type or Types)
-                    //Will have to wrap description if it exceeds character length of Heading "Name=======etc"
         }
     }
 }

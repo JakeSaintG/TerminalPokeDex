@@ -243,8 +243,8 @@ namespace PokeDex
             string pokemonHabitat = PrintPokemonHabitat(pokemonSpeciesEntry);
             string abilities = PrintPokemonAbilities(pokemonMainEntry);
             string pokemonMeasure = PrintPokemonMeasurements(pokemonMainEntry);
-            string description = Formatting.WrapDescriptionText(PrintPokemonDescription(pokemonSpeciesEntry, entry));
-            string pokemonForms = PrintPokemonForms(pokemonSpeciesEntry);
+            string description = Formatting.WrapText(PrintPokemonDescription(pokemonSpeciesEntry, entry));
+            string pokemonForms = Formatting.WrapText(PrintPokemonForms(pokemonSpeciesEntry));
             string evolvesTo = PrintPokemonEvolutions(pokemonEvolutionEntry);
             string bottomBar = "==================================================================================";
             string completedEntry = $"\r\n{pokemonName}No. {pokemonSpeciesEntry.ID}==={pokemonGen}\r\n" +
