@@ -128,7 +128,11 @@ namespace PokeDex
             if (pokemonMainEntry.Types.Length != 1)
             {
                 string pokemonSecondType = info.ToTitleCase(pokemonMainEntry.Types[1].Type.Name);
-                pokemonType = $"{pokemonType}/{pokemonSecondType}";
+                pokemonType = $"Types: {pokemonType}/{pokemonSecondType}";
+            }
+            else
+            {
+                pokemonType = $"Type: {pokemonType}";
             }
             return pokemonType;
         }
@@ -302,7 +306,7 @@ namespace PokeDex
             string evolvesTo = PrintPokemonEvolutions(pokemonEvolutionEntry);
             string bottomBar = "==================================================================================";
             string completedEntry = $"\r\n{pokemonName}No. {pokemonSpeciesEntry.ID}==={pokemonGen}\r\n" +
-                $"||Types: {pokemonType};        Color: {pokemonSpeciesEntry.Color.Name};        {pokemonHabitat}\r\n" +
+                $"||{pokemonType};        Color: {pokemonSpeciesEntry.Color.Name};        {pokemonHabitat}\r\n" +
                 $"||\r\n" +
                 $"||{abilities}\r\n" +
                 $"||\r\n" +
