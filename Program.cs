@@ -52,9 +52,9 @@ namespace PokeDex
                 if (pokeList.Results.Any(p => p.Name == entry) && !entry.Contains("cap") && !entry.Contains("totem"))
                 {
                     Console.ForegroundColor = ConsoleColor.White;
-                    var pokemonMainEntry = APICall.GetEntry(entry);
-                    var pokemonSpeciesEntry = APICall.GetEntrySpecies(pokemonMainEntry.Species.Url);
-                    var pokemonEvolutionEntry = APICall.GetEntryEvolutionChain(pokemonSpeciesEntry.EvolutionChain.Url);
+                    PokemonEntry pokemonMainEntry = APICall.GetEntry(entry);
+                    PokemonSpecies pokemonSpeciesEntry = APICall.GetEntrySpecies(pokemonMainEntry.Species.Url);
+                    PokemonEvolution pokemonEvolutionEntry = APICall.GetEntryEvolutionChain(pokemonSpeciesEntry.EvolutionChain.Url);
                     Console.WriteLine(Print.PrintPokemonPokedexEntry(pokemonMainEntry, pokemonSpeciesEntry, pokemonEvolutionEntry, entry));
                     Settings.CheckColors(ConsoleColor.Cyan);
                 }
