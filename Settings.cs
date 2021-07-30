@@ -9,6 +9,7 @@ namespace PokeDex
         public static bool EmperialMeasureSetting = false;
         public static bool DefaultConsole = false;
 
+        //Main settings loop.
         public static void AlterSettings()
         { 
             Console.WriteLine("Entering settings...\r\n\r\n==================================================================================");
@@ -18,6 +19,7 @@ namespace PokeDex
             while (true)
             {
                 WriteFullLine("\r\nCurrent settings:");
+               //Show the current units of measurement setting.
                 if (EmperialMeasureSetting == true)
                 {
                     WriteFullLine("   >Units of measurement: Emperial");
@@ -26,6 +28,8 @@ namespace PokeDex
                 {
                     WriteFullLine("   >Units of measurement: Metric");
                 }
+
+                //Shows the current console color settings.
                 if (DefaultConsole == false)
                 {
                     WriteFullLine("   >Current console: Colorful");
@@ -35,6 +39,7 @@ namespace PokeDex
                     WriteFullLine("   >Current console: Default");
                 }
 
+                //Handles user input in the settings menu.
                 string settingsInput = Console.ReadLine().ToLower();
                 if (settingsInput == "units")
                 {
@@ -70,6 +75,8 @@ namespace PokeDex
             }
         }
 
+        //Attempts to handle coloring errors that sometimes occur when switching console colors.
+        //It fills the remaining space on the line.
         public static void WriteFullLine(string value)
         {
             Console.WriteLine(value.PadRight(Console.WindowWidth));
@@ -83,6 +90,7 @@ namespace PokeDex
             }
         }
 
+        //Sets the terminal colors based on what is passed in.
         public static void SetColors()
         {
             if (Console.BackgroundColor == ConsoleColor.Black)
@@ -96,7 +104,7 @@ namespace PokeDex
         public static bool CheckForQuit(string entry)
         {
             var quitCommands = new List<string> { "stop", "exit", "quit", "q", "return" };
-            if (quitCommands.Any(str => str.Contains(entry)))
+            if (quitCommands.Any(str => str.Contains(entry)) && entry != "")
             {
                 return false;
             }

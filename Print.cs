@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using static System.Globalization.CultureInfo;
 
 namespace PokeDex
@@ -12,7 +11,8 @@ namespace PokeDex
         {
             var skipForms = new List<string> { "-small", "-super", "-average", "-large", "-battle-bond", "-ash" };
             var displayOptions = new List<Result>(pokeList.Results.Where(p => p.Name.Contains(entry)));
-            //Goal: If any of the names in displayOptions contain any of the strings in skipForms, then skip displaying options and send the fist item in displayOptions to API
+            //displayOptions.RemoveAll(p => p.Name.Contains("totem"));
+            displayOptions.RemoveAll(p => p.Name.Contains("-cap") || p.Name.Contains("totem"));
 
             if (displayOptions.Count > 1)
             {
@@ -24,6 +24,7 @@ namespace PokeDex
 
                     Settings.CheckColors(ConsoleColor.White);
                     Console.WriteLine($"    Press {counter++}: {pokemonName}");
+ 
                 }
                 Settings.CheckColors(ConsoleColor.Yellow);
 
@@ -123,7 +124,7 @@ namespace PokeDex
         }
         private static string PrintPokemonType(PokemonEntry pokemonMainEntry)
         {
-            var info = CurrentCulture.TextInfo; //Need to figure out how to make this a field.....
+            var info = CurrentCulture.TextInfo; 
             string pokemonType = info.ToTitleCase(pokemonMainEntry.Types[0].Type.Name);
             if (pokemonMainEntry.Types.Length != 1)
             {
@@ -198,12 +199,7 @@ namespace PokeDex
             pokemonSpeciesEntry.FlavorTextEntries.RemoveAll(f => f.Language.Name != "en");
             var description = pokemonSpeciesEntry.FlavorTextEntries[0].FlavorText;
             var specialDescriptionForms = new List<string> { "-galar", "-alola", "-gmax", "-mega", "rotom", "-black", "-white" };
-            var formsList = new List<SpecialForms>();
-            //In order for this to work, I probably need to deserialize the forms JSON on startup.
-            //if (formsList.Any(s => s.Name.Contains(entry)))
-            //{
-            //    description = Filter.GetActualDescription(entry);
-            //}
+
             foreach (var item in specialDescriptionForms)
             {
                 if (entry.Contains(item))
@@ -211,7 +207,7 @@ namespace PokeDex
                     description = Formatting.GetActualDescription(entry);
                 }
             }
-            return description = description.Replace("\n", " ").Replace("\f", " "); //Make method for removing weird symbols
+            return description = description.Replace("\n", " ").Replace("\f", " "); 
         }
         private static string PrintPokemonForms(PokemonSpecies pokemonSpeciesEntry)
         {
@@ -238,7 +234,7 @@ namespace PokeDex
         }
         private static string PrintPokemonEvolutions(PokemonEvolution pokemonEvolutionEntry)
         {
-            var info = CurrentCulture.TextInfo; //Need to figure out how to make this a field.....
+            var info = CurrentCulture.TextInfo;
             string evolvesTo = "";
             var evolutions = pokemonEvolutionEntry.Chain.EvolvesTo;
             if (evolutions.Length != 0)

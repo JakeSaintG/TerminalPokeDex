@@ -20,7 +20,7 @@ namespace PokeDex
         public string Name { get; set; }
 
         [JsonProperty(PropertyName = "species")]
-        public Species Species { get; set; } //Use this to make the species call?
+        public Species Species { get; set; }
 
         [JsonProperty(PropertyName = "types")]
         public Types[] Types { get; set; }

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace PokeDex
 {
@@ -30,17 +30,26 @@ namespace PokeDex
                     break;
                 }
 
+                //opens the settings menu.
                 if (entry == "settings")
                 {
                     Settings.AlterSettings();
                     continue;
                 }
+                
+                //Sends the user's input for filtering to make it compatible with PokeAPI
                 entry = Formatting.FilterNameEntry(entry);
 
-                //Displays possible matches that the user may be looking for
-                entry = Print.DisplayOptions(entry, pokeList);
+                if (entry != "")
+                {
+                    //Displays possible matches from the list of Pokemon gathered at startup.
+                    entry = Print.DisplayOptions(entry, pokeList);
+                }
 
-                if (pokeList.Results.Any(p => p.Name == entry))
+                //If anything matches the list of Pokemon gathered at start-up, this will print it to the console.
+                //If nothing matches, it will prompt the user to try again.
+                
+                if (pokeList.Results.Any(p => p.Name == entry) && !entry.Contains("cap") && !entry.Contains("totem"))
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                     var pokemonMainEntry = APICall.GetEntry(entry);

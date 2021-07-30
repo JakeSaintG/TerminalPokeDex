@@ -10,6 +10,9 @@ namespace PokeDex
         private static string initalUrl = "https://pokeapi.co/api/v2/pokemon?limit=1283";
         private static WebClient webClient = new WebClient();
 
+        //WebRequest attempts to download the requested information.
+        //If it fails, it starts a loop that allows the user to retry or quit.
+        //If successful, it returns a byte[].
         private static byte[] WebRequest(string url)
         {
             var data = new byte[] { };           
@@ -36,6 +39,7 @@ namespace PokeDex
             return data;
         }
 
+        //Assigns the returned information to byte[] and builds it out into a string.
         private static string ReturnWebRequest(string url)
         {
             byte[] data = WebRequest(url);
@@ -75,13 +79,14 @@ namespace PokeDex
         {
             return JsonConvert.DeserializeObject<PokemonSpecies>(json);
         }
-        public static SpecialFormsDecriptions DeserializeSpecialJson(string json) //make private after things are moved around
-        {
-            return JsonConvert.DeserializeObject<SpecialFormsDecriptions>(json);
-        }
-        public static PokemonEvolution DeserializeEvolutionJson(string json) //make private after things are moved around
+        private static PokemonEvolution DeserializeEvolutionJson(string json)
         {
             return JsonConvert.DeserializeObject<PokemonEvolution>(json);
         }
+        public static SpecialFormsDecriptions DeserializeSpecialJson(string json)
+        {
+            return JsonConvert.DeserializeObject<SpecialFormsDecriptions>(json);
+        }
+
     }
 }

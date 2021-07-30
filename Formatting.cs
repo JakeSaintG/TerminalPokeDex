@@ -19,14 +19,10 @@ namespace PokeDex
             name = info.ToTitleCase(name.Replace("-", " "));
             return name;
         }
-
+        
+        //Handles certain pokemon with names that are most commonly mis-input.
         public static string FilterNameEntry(string enteredPokemon)
         {
-            if (enteredPokemon == "")
-            {
-
-                //If the user did not put anything into the submission input, generate a MissingNo Error.
-            };
             if (enteredPokemon.Contains("farfet") && enteredPokemon.Contains("-galar"))
             {
                 enteredPokemon = "farfetchd-galar";
@@ -63,7 +59,10 @@ namespace PokeDex
             {
                 enteredPokemon = "type-null";
             }
-            //else if gourgeist or pumpkaboo, just display the first one "pokemon-average"
+            else if (enteredPokemon.Contains("pumpkaboo") || enteredPokemon.Contains("gourgeist"))
+            {
+                enteredPokemon += "-average";
+            }
             else if (enteredPokemon.Contains("ho") && enteredPokemon.Contains("oh"))
             {
                 enteredPokemon = "ho-oh";
@@ -178,7 +177,8 @@ namespace PokeDex
             }
             return alterName;
         }
-
+        
+        //PokeAPI's descriptions are not organized in way that allows for differentiation between a description for a base form Pokemon and a special form pokemon.
         public static string GetActualDescription(string entry)
         {
             string path = Directory.GetCurrentDirectory();
@@ -192,6 +192,7 @@ namespace PokeDex
             return description;
         }
 
+        //Wraps the text for the description so that it can fit in the "box" of the printed entry.
         public static string WrapText(string textToWrap)
         {
             string wrappedText = "";

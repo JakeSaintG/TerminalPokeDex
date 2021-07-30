@@ -5,7 +5,7 @@
 - Choose a Pokemon that you would like to learn more about and the console will give you information on it.
 - Displays evolutions if the Pokemon has any!
 - Shows the various special forms that a Pokemon may have.
-- Prompts the user to with options to help narrow-down their search for a desired Pokemon.
+- Prompts the user with options to help narrow-down their search for a desired Pokemon.
 - Outputs each Pokedex entry in a readable way and hides unnecessary or blank information.
 - Choose whether or not you want a colorful console in the settings.
 - Pick whether or not you want the data returned in metric measurements to imperial measurements.
