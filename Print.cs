@@ -88,38 +88,27 @@ namespace PokeDex
             //3. If Generation.Name === i, take the index number, add 1, put it in the string "Generation: ${indexNumber}"
 
             var gen = pokemonSpeciesEntry.Generation.Name;
-            if (gen.Contains("-viii"))
+            Dictionary<string, string> generations = new Dictionary<string, string>()
             {
-                gen = "Generation: 8";
-            }
-            else if (gen.Contains("-vii"))
+                {"generation-viii", "Generation: 8"},
+                {"generation-vii", "Generation: 7"},
+                {"generation-vi", "Generation: 6"},
+                {"generation-v", "Generation: 5"},
+                {"generation-iv", "Generation: 4"},
+                {"generation-iii", "Generation: 3"},
+                {"generation-ii", "Generation: 2"},
+                {"generation-i", "Generation: 1"}
+            };
+
+            if (generations.Keys.Contains(gen))
             {
-                gen = "Generation: 7";
+                gen = generations[gen];
             }
-            else if (gen.Contains("-vi"))
+            else
             {
-                gen = "Generation: 6";
-            }
-            else if (gen.Contains("-v"))
-            {
-                gen = "Generation: 5";
-            }
-            else if (gen.Contains("-iv"))
-            {
-                gen = "Generation: 4";
-            }
-            else if (gen.Contains("-iii"))
-            {
-                gen = "Generation: 3";
-            }
-            else if (gen.Contains("-ii"))
-            {
-                gen = "Generation: 2";
-            }
-            else if (gen.Contains("-i"))
-            {
-                gen = "Generation: 1";
-            }
+                gen = "Generation: ?";
+            };
+            
             return gen;
         }
         private static string PrintPokemonType(PokemonEntry pokemonMainEntry)

@@ -23,51 +23,34 @@ namespace PokeDex
         //Handles certain pokemon with names that are most commonly mis-input.
         public static string FilterNameEntry(string enteredPokemon)
         {
-            if (enteredPokemon.Contains("farfet") && enteredPokemon.Contains("-galar"))
+            Dictionary<List<string>, string> filter2 = new Dictionary<List<string>, string>()
             {
-                enteredPokemon = "farfetchd-galar";
+                {new List<string> { "jr", "" }, "mime-jr"},
+                {new List<string> { "farfet", "-galar" }, "farfetchd-galar"},
+                {new List<string> { "farfet", "" }, "farfetchd"},
+                {new List<string> { "pumpkaboo", "" }, "pumpkaboo-average"},
+                {new List<string> { "gourgeist", "" }, "gourgeist-average"},
+                {new List<string> { "rime", "mr" }, "mr-rime"},
+                {new List<string> { "porygon", "2" }, "porygon2"},
+                {new List<string> { "porygon", "z" }, "porygon-z"},
+                {new List<string> { "type", "null" }, "type-null"},
+                {new List<string> { "ho", "oh" }, "ho-oh"},
+                {new List<string> { "mime", "-galar" }, "mr-mime-galar"},
+                {new List<string> { "mime", "mr" }, "mr-mime"}
+            };
+            int counter = 0;
+            foreach (var key in filter2.Keys)
+            {          
+                if (enteredPokemon.Contains(key[0]) && enteredPokemon.Contains(key[1]))
+                {
+                 
+                    enteredPokemon = filter2.ElementAt(counter).Value;
+                }
+                else
+                {
+                    counter++;
+                }
             }
-            else if (enteredPokemon.Contains("farfet"))
-            {
-                enteredPokemon = "farfetchd";
-            }
-            else if (enteredPokemon.Contains("jr"))
-            {
-                enteredPokemon = "mime-jr";
-            }
-            else if (enteredPokemon.Contains("rime") && enteredPokemon.Contains("mr"))
-            {
-                enteredPokemon = "mr-rime";
-            }
-            else if (enteredPokemon.Contains("porygon") && enteredPokemon.Contains("2"))
-            {
-                enteredPokemon = "porygon2";
-            }
-            else if (enteredPokemon.Contains("porygon") && enteredPokemon.Contains("z"))
-            {
-                enteredPokemon = "porygon-z";
-            }
-            else if (enteredPokemon.Contains("mime") && enteredPokemon.Contains("-galar"))
-            {
-                enteredPokemon = "mr-mime-galar";
-            }
-            else if (enteredPokemon.Contains("mime") && enteredPokemon.Contains("mr"))
-            {
-                enteredPokemon = "mr-mime";
-            }
-            else if (enteredPokemon.Contains("type") && enteredPokemon.Contains("null"))
-            {
-                enteredPokemon = "type-null";
-            }
-            else if (enteredPokemon.Contains("pumpkaboo") || enteredPokemon.Contains("gourgeist"))
-            {
-                enteredPokemon += "-average";
-            }
-            else if (enteredPokemon.Contains("ho") && enteredPokemon.Contains("oh"))
-            {
-                enteredPokemon = "ho-oh";
-            }
-            else {/*Do nothing*/};
             return enteredPokemon;
         }
 
@@ -111,70 +94,33 @@ namespace PokeDex
                 // Gets a substring from the beginning of the string to the first instance of the character "-". 
                 // Removes hyphens and other form info from the end of the pokemon name.
             };
-            if (pokemonEntry.Id == 29)
+
+            Dictionary<int, string> formattedNames = new Dictionary<int, string>()
             {
-                alterName = $"{alterName}♀";
-            }; // Alters the name of nidoran to the correct Dex form of "Nidoran♀".
-            if (pokemonEntry.Id == 32)
+                {29, $"{alterName}♀"},
+                {32, $"{alterName}♂"},
+                {474, $"{alterName}-Z"},
+                {250, $"{alterName}-oh"},
+                {439, $"{alterName} Jr."},
+                {122, $"{alterName}. Mime"},
+                {10165, "Galarian Mr. Mime"},
+                {866, $"{alterName}. Rime"},
+                {83, "Farfetch'd"},
+                {10163, "Galarian Farfetch'd"},
+                {784, "Kommo-o"},
+                {783, "Hakamo-o"},
+                {782, "Jangmo-o"},
+                {772, "Type: Null"},
+                {10178, $"{alterName} Low Key"},
+                {10220, $"{alterName} Low Key"},
+                {849, $"{alterName} Amped"},
+                {10210, $"{alterName} Amped"},
+            };
+            if (formattedNames.Keys.Contains(pokemonEntry.Id))
             {
-                alterName = $"{alterName}♂";
-            }; // Alters the name of nidoran to the correct Dex form of "Nidoran♂".
-            if (pokemonEntry.Id == 474)
-            {
-                alterName = $"{alterName}-Z";
-            }; // Fixes Porygon-Z's name
-            if (pokemonEntry.Id == 250)
-            {
-                alterName = $"{alterName}-oh";
-            }; // Attempt to fix Ho-Oh's name
-            if (pokemonEntry.Id == 439)
-            {
-                alterName = $"{alterName} Jr.";
-            }; // Fixes Mime Jr.'s name
-            if (pokemonEntry.Id == 122)
-            {
-                alterName = $"{alterName}. Mime";
-            }; // Fixes Mr. Mime's name
-            if (pokemonEntry.Id == 10165)
-            {
-                alterName = $"Galarian Mr. Mime";
-            }; // Fixes Galar Mr. Mime's name
-            if (pokemonEntry.Id == 866)
-            {
-                alterName = $"{alterName}. Rime";
-            }; // Fixes Mr. Rime's name
-            if (pokemonEntry.Id == 83)
-            {
-                alterName = "Farfetch'd";
-            }; // Fixes Farfetch'd's name
-            if (pokemonEntry.Id == 10163)
-            {
-                alterName = "Galarian Farfetch'd";
-            }; // Fixes Galar Farfetch'd's name
-            if (pokemonEntry.Id == 784)
-            {
-                alterName = "Kommo-o";
-            }; // Fixes name
-            if (pokemonEntry.Id == 783)
-            {
-                alterName = "Hakamo-o";
-            }; // Fixes name
-            if (pokemonEntry.Id == 782)
-            {
-                alterName = "Jangmo-o";
-            }; // Fixes name
-            if (pokemonEntry.Id == 772)
-            {
-                alterName = "Type: Null";
-            }; // Fixes name
-            if (pokemonEntry.Id == 10178 || pokemonEntry.Id == 10220)
-            {
-                alterName += " Low Key";
+                alterName = formattedNames[pokemonEntry.Id];
             }
-            if (pokemonEntry.Id == 849 || pokemonEntry.Id == 10210)
-            {
-                alterName += " Amped";
-            }
+
             return alterName;
         }
         
