@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-namespace PokeDex
+namespace PokeDex.Models
 {
 
     public class PokeList

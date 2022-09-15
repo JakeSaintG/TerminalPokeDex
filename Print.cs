@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokeDex.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using static System.Globalization.CultureInfo;
@@ -11,7 +12,7 @@ namespace PokeDex
         {
             var skipForms = new List<string> { "-small", "-super", "-average", "-large", "-battle-bond", "-ash" };
             var displayOptions = new List<Result>(pokeList.Results.Where(p => p.Name.Contains(entry)));
-            //displayOptions.RemoveAll(p => p.Name.Contains("totem"));
+
             displayOptions.RemoveAll(p => p.Name.Contains("-cap") || p.Name.Contains("totem"));
 
             if (displayOptions.Count > 1)
@@ -63,6 +64,7 @@ namespace PokeDex
                 return entry;
             }
         }
+
         private static string PrintPokemonName(PokemonEntry pokemonMainEntry, PokemonSpecies pokemonSpeciesEntry) 
         {
             string pokemonName = pokemonMainEntry.Name;

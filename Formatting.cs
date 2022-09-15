@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokeDex.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -127,9 +128,8 @@ namespace PokeDex
         //PokeAPI's descriptions are not organized in way that allows for differentiation between a description for a base form Pokemon and a special form pokemon.
         public static string GetActualDescription(string entry)
         {
-            string path = Directory.GetCurrentDirectory();
-            DirectoryInfo directory = new DirectoryInfo(path);
-            var fileName = Path.Combine(directory.FullName, "formExceptions.json");
+            DirectoryInfo directory = new DirectoryInfo(Directory.GetCurrentDirectory());
+            var fileName = Path.Combine(directory.FullName, "JSON/formExceptions.json");
             var json = ReadFile(fileName);
             var forms = APICall.DeserializeSpecialJson(json);
             forms.Specialforms.RemoveAll(f => f.Name != entry);

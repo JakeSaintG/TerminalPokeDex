@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PokeDex
+namespace PokeDex.Models
 {
     public class PokemonEvolution
     {

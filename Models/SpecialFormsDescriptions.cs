@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace PokeDex
+namespace PokeDex.Models
 {
     public class SpecialFormsDecriptions
     {

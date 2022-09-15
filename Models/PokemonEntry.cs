@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace PokeDex
+namespace PokeDex.Models
 {
     public class PokemonEntry
     {
@@ -41,10 +41,10 @@ namespace PokeDex
     {
         [JsonProperty(PropertyName = "ability")]
         public Ability Ability { get; set; }
-        
+
         [JsonProperty(PropertyName = "is_hidden")]
         public bool Is_hidden { get; set; }
-        
+
         [JsonProperty(PropertyName = "slot")]
         public int Slot { get; set; }
     }
@@ -71,7 +71,7 @@ namespace PokeDex
     {
         [JsonProperty(PropertyName = "slot")]
         public int Slot { get; set; }
-        
+
         [JsonProperty(PropertyName = "type")]
         public Type Type { get; set; }
     }

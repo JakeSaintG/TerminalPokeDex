@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.IO;
 using System;
+using PokeDex.Models;
 
 namespace PokeDex
 {
