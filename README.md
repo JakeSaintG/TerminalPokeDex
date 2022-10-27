@@ -9,7 +9,6 @@
 - Outputs each Pokedex entry in a readable way and hides unnecessary or blank information.
 - Choose whether or not you want a colorful console in the settings.
 - Pick whether or not you want the data returned in metric measurements to imperial measurements.
-
  
 #### Code Louisville Project Requirements
 - Read data from an external file, such as text, JSON, CSV, etc and use that data in your application
