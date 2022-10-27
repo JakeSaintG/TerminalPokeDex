@@ -84,6 +84,4 @@ namespace PokeDex.Models
         [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
     }
-
-
 }
